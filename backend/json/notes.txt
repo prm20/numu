@@ -1,0 +1,1 @@
+- in json/numu_disc1.json line #63, need to add the blends "ts", "tz", "kw", "ng"

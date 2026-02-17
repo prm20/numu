@@ -1,0 +1,586 @@
+{
+  "meta": {
+    "title": "Numu Yadooape (Northern Paiute Language)",
+    "dialect": "Pyramid Lake Paiute Tribe",
+    "writing_system": "Wycliffe",
+    "disc": 4,
+    "total_pages": 14,
+    "lessons": "33–44",
+    "lesson_count": 12,
+    "notes": "Disc 4 is the most grammar-focused disc in the series. It introduces two full verb paradigms (jump, see/look), applied color usage for red, body condition phrases (Numma), yes/no question formation with ha'a, and a systematic survey of five grammatical suffixes (-kwu, -hookwu, -pu, -ku, -kooha). The disc closes with two sentence structure lessons using word-by-word component glosses. Many base verbs introduced here (Hebe, Mea, Saa, Tumu, Tubo, Yaga, etc.) appear across multiple suffix lessons, making this disc a core grammar reference layer for the app."
+  },
+
+  "writing_system": {
+    "vowels": ["a", "e", "i", "o", "u"],
+    "letters_not_used": ["f", "j", "l", "q", "r", "v", "x"],
+    "vowel_sounds": [
+      { "letter": "a", "sound_description": "like the 'a' in father", "examples": [{ "paiute": "Ada", "english": "crow" }, { "paiute": "Haga", "english": "who" }] },
+      { "letter": "e", "sound_description": "like the 'e' in easy", "examples": [{ "paiute": "Ehobe", "english": "dove" }, { "paiute": "Hebe", "english": "drink" }] },
+      { "letter": "i", "sound_description": "like the 'i' in high", "examples": [{ "paiute": "Kiba", "english": "mountain" }, { "paiute": "Hitse", "english": "sweetheart" }] },
+      { "letter": "o", "sound_description": "like the 'o' in no", "examples": [{ "paiute": "Nobe", "english": "house" }, { "paiute": "Soba", "english": "cheeks" }] },
+      { "letter": "u", "sound_description": "like the 'u' in put", "examples": [{ "paiute": "Numu", "english": "people" }, { "paiute": "Padu", "english": "daughter" }, { "paiute": "nu", "english": "I" }] }
+    ],
+    "elongated_sounds": {
+      "description": "Doubled letters indicate sounds held longer: aa, ee, mm, nn",
+      "examples": [
+        { "paiute": "Aa", "english": "antlers" },
+        { "paiute": "Teepu", "english": "earth, land" },
+        { "paiute": "Tommo", "english": "winter" },
+        { "paiute": "Tsahanne", "english": "undo" }
+      ]
+    },
+    "vowel_combinations": [
+      { "combo": "oo", "sound_description": "like the 'oo' in boot", "examples": [{ "paiute": "Pookoo", "english": "horse" }, { "paiute": "Kootsoo", "english": "cow" }] },
+      { "combo": "ae", "sound_description": "like the 'a' in say", "examples": [{ "paiute": "Sae", "english": "thigh" }, { "paiute": "Tumadaena", "english": "right" }] },
+      { "combo": "ow", "sound_description": "like the 'ow' in cow", "examples": [{ "paiute": "Kowpa", "english": "leg" }, { "paiute": "Powma", "english": "rain" }] },
+      { "combo": "oe", "sound_description": "like the 'oy' ending in toy", "examples": [{ "paiute": "Toe", "english": "cattail" }, { "paiute": "Nakoe", "english": "fight" }] },
+      { "combo": "ea", "sound_description": "special sound unlike in English", "examples": [{ "paiute": "Pea", "english": "mother" }, { "paiute": "Mea", "english": "go" }] },
+      { "combo": "dy", "sound_description": "the 'ch' sound in English", "examples": [{ "paiute": "Tuhudya", "english": "deer" }, { "paiute": "Kodyu", "english": "return" }] }
+    ],
+    "glottal_stop": {
+      "symbol": "'",
+      "description": "Apostrophe marks a split-second interruption of breath and sound. Voiceless glottal.",
+      "examples": [
+        { "paiute": "Pabe'e", "english": "older brother" },
+        { "paiute": "Mogo'ne", "english": "lady" },
+        { "paiute": "Saa'a", "english": "later" },
+        { "paiute": "Hi'e", "english": "uncle" }
+      ]
+    },
+    "consonants": [
+      { "letter": "b", "sound_description": "identical to English 'b' as in 'Bill'" },
+      { "letter": "c", "sound_description": "s sound, only used in few words", "examples": [{ "paiute": "Cee", "english": "intestines" }, { "paiute": "Nocee", "english": "dream" }] },
+      { "letter": "d", "sound_description": "identical to English 'd' as in 'dog'" },
+      { "letter": "g", "sound_description": "identical to English 'g' as in 'great'" },
+      { "letter": "h", "sound_description": "identical to English 'h' as in 'hill'" },
+      { "letter": "k", "sound_description": "like the English 'k' as in 'kid'" },
+      { "letter": "m", "sound_description": "identical to English 'm' as in 'mother'" },
+      { "letter": "n", "sound_description": "identical to English 'n' as in 'need'" },
+      { "letter": "p", "sound_description": "identical to English 'p' as in 'proud'" },
+      { "letter": "s", "sound_description": "either like English 's' (as in silly) or like English 'sh' (as in shop). If next to 'e' or 'i', sounds like 'sh'", "examples": [{ "paiute": "Pesa", "english": "good" }, { "paiute": "Esa", "english": "wolf" }] },
+      { "letter": "t", "sound_description": "identical to English 't' as in 'tall'" },
+      { "letter": "w", "sound_description": "like 'w' in 'Will' but softer, between 'm' and 'w'" },
+      { "letter": "y", "sound_description": "identical to English 'y' as in 'yellow'" },
+      { "letter": "z", "sound_description": "identical to English 'z' as in 'zoo'" }
+    ],
+    "blends": [
+      { "blend": "tsa", "examples": [{ "paiute": "Tsagwudu", "english": "porcupine" }, { "paiute": "Tsapoone", "english": "show" }, { "paiute": "Atsabana", "english": "flicker" }] },
+      { "blend": "tse", "examples": [{ "paiute": "Tsemoo", "english": "hip" }, { "paiute": "Tsekwaha", "english": "point" }, { "paiute": "Pabetse", "english": "weasel" }] },
+      { "blend": "tso", "examples": [{ "paiute": "Tsopege", "english": "head" }, { "paiute": "Hetsotso'o", "english": "dragonfly" }, { "paiute": "Tawetsogo", "english": "ankle" }] },
+      { "blend": "tsu", "examples": [{ "paiute": "Utzu'tzu", "english": "cold" }, { "paiute": "Tatsungu", "english": "count" }, { "paiute": "Yutsunga", "english": "alive" }] },
+      { "blend": "tza", "examples": [{ "paiute": "Etza'a", "english": "coyote" }, { "paiute": "Tatza", "english": "summer" }, { "paiute": "Pamagatza'a", "english": "horned toad" }] },
+      { "blend": "tze", "examples": [{ "paiute": "Etze'e", "english": "yesterday" }, { "paiute": "Tzepesa", "english": "squirrel" }, { "paiute": "Hootze", "english": "sagehen" }] },
+      { "blend": "kwa", "examples": [{ "paiute": "Hukwapu", "english": "wind" }, { "paiute": "Nodukwa", "english": "wife" }, { "paiute": "Togokwa", "english": "snake" }] },
+      { "blend": "kwe", "examples": [{ "paiute": "Kwena'a", "english": "eagle" }, { "paiute": "Pakwe", "english": "fish" }, { "paiute": "Kweba", "english": "hit or fall" }] },
+      { "blend": "kwo", "examples": [{ "paiute": "Kwo", "english": "hair" }, { "paiute": "Tsakwona", "english": "open" }, { "paiute": "Wokwosakwe'yoo", "english": "eight" }] },
+      { "blend": "kwu", "examples": [{ "paiute": "Yukwu", "english": "swallow" }, { "paiute": "Tunekwuhu", "english": "sing" }, { "paiute": "Tsakwuhu", "english": "carry" }] },
+      { "blend": "nga", "examples": [{ "paiute": "Pongatze", "english": "mouse" }, { "paiute": "Wanga'a", "english": "younger brother" }, { "paiute": "Yoonga", "english": "carry" }] },
+      { "blend": "nge", "examples": [{ "paiute": "Pongeta", "english": "skunk" }, { "paiute": "Wange'e", "english": "fox" }, { "paiute": "Tsawo'nge", "english": "scratch" }] },
+      { "blend": "ngo", "examples": [{ "paiute": "Songo'o", "english": "lungs" }, { "paiute": "Yongona", "english": "evening" }, { "paiute": "Pongosa", "english": "arrow" }] },
+      { "blend": "ngu", "examples": [{ "paiute": "Wopongu", "english": "mosquito" }, { "paiute": "Tubongu", "english": "down" }, { "paiute": "Tatsungu", "english": "count" }] }
+    ]
+  },
+
+  "grammar_suffix_note": "Disc 4 systematically documents five grammatical suffixes that modify verb meaning. -kwu (future tense): attaches to verb root to indicate future action. -hookwu (present/immediate tense): attaches with glottal stop to indicate imminent or ongoing action; source labels this 'present tense' but conjugations translate as 'will/going to', suggesting it marks near-future or intended action. -pu (past tense): attaches to verb root to indicate completed action. -ku (causative/benefactive): marks that the action is done for or to someone else; causes verb action to occur on behalf of another. -kooha (inchoative): marks the beginning or restart of an action — 'start to [verb]'. Many of the same base verbs appear across all five suffix lessons, making these lessons well-suited for a paradigm-table view in the app.",
+
+  "lessons": [
+    {
+      "lesson_number": 33,
+      "title": "All about Jump",
+      "audio_file": "1 All about Jump.m4a",
+      "page": "4.1",
+      "category": "verb_paradigm",
+      "notes": "Full paradigm for Nadakwunae (jump). Parallel in structure to Disc 3 Lesson 28 (All About Eating / Tuka). Encodes aspect, directionality, number (two / group), and modality (try, hasn't yet, might). The four phrase_forms at the bottom use auxiliary words (Too'e, Kisoo, Sumuna) to modify the verb. Note: Kisoo Nadakwuna'e uses a slight spelling variant of the root (Nadakwuna'e vs Nadakwunae) — verify against audio.",
+      "verb_forms": [
+        { "paiute": "Nadakwunae",            "pronunciation": "Na-da-kwu-nae",           "english": "jump" },
+        { "paiute": "Nadakwunae'hoo",         "pronunciation": "Na-da-kwu-nae-hoo",       "english": "just jumped" },
+        { "paiute": "Nadakwunaepu",           "pronunciation": "Na-da-kwu-nae-pu",        "english": "jumped [past]" },
+        { "paiute": "Nadakwunae'hookwu",      "pronunciation": "Na-da-kwu-nae-hoo-kwu",   "english": "will jump [present tense]" },
+        { "paiute": "Nadakwunae'kwu",         "pronunciation": "Na-da-kwu-nae-kwu",       "english": "going to jump [future tense]" },
+        { "paiute": "Nadakwunaegakwu",        "pronunciation": "Na-da-kwu-nae-ga-kwu",    "english": "going to a place to jump" },
+        { "paiute": "Nadakwunaewunu",         "pronunciation": "Na-da-kwu-nae-wu-nu",     "english": "jumping" },
+        { "paiute": "Nadakwunaega'a",         "pronunciation": "Na-da-kwu-nae-ga-a",      "english": "going along jumping" },
+        { "paiute": "Nadakwunaedape",         "pronunciation": "Na-da-kwu-nae-da-pe",     "english": "jumping continuously" },
+        { "paiute": "Nadakwunaetsagate",      "pronunciation": "Na-da-kwu-nae-tsa-ga-te", "english": "slowly jumping" },
+        { "paiute": "Nadakwunaewame",         "pronunciation": "Na-da-kwu-nae-wa-me",     "english": "two jumping" },
+        { "paiute": "Nadakwunaegono'o",       "pronunciation": "Na-da-kwu-nae-go-no-o",   "english": "jumping [plural or group]" },
+        { "paiute": "Nadakwunae'hootooa",     "pronunciation": "Na-da-kwu-nae-hoo-tooa",  "english": "went jumped and returned" },
+        { "paiute": "Nadakwunaekooha",        "pronunciation": "Na-da-kwu-nae-koo-ha",    "english": "started jumping" },
+        { "paiute": "Nadakwunaemakwu'hoo",   "pronunciation": "Na-da-kwu-nae-ma-kwu-hoo","english": "through jumping" },
+        { "paiute": "Nadakwunaebodote",       "pronunciation": "Na-da-kwu-nae-bo-do-te",  "english": "jumping around back and forth" },
+        { "paiute": "Nadakwunae'se",          "pronunciation": "Na-da-kwu-nae-se",        "english": "after or because jumped" }
+      ],
+      "phrase_forms": [
+        { "paiute": "Too'e Nadakwunaekwu",              "english": "try to jump" },
+        { "paiute": "Kisoo Nadakwuna'e",                "english": "hasn't jumped yet", "notes": "Spelling variant of root: Nadakwuna'e vs Nadakwunae — verify against audio" },
+        { "paiute": "Sumuna Nadakwunae'hookwu",         "english": "might jump [present tense]" },
+        { "paiute": "Nadakwunae'hookwa'ne Tabu'a",      "english": "looks like he or she is going to jump" }
+      ]
+    },
+
+    {
+      "lesson_number": 34,
+      "title": "The Color Red",
+      "audio_file": "2 The Color Red.m4a",
+      "page": "4.2",
+      "category": "colors",
+      "notes": "Applied usage lesson for the color red (root: Atsa-, adjective form: Atsakweta). Builds directly on the color morphology system documented in Disc 3 Lesson 22. Entries are numbered phrases and sentences demonstrating red in varied grammatical roles — as subject, object, modifier, compound, and predicate. Entry 6 flag: source prints 'Atsakwedu' (missing 't') — likely a print error for 'Atsakwetadu'; verify against audio. Entry 23 (Atsabana = flicker) refers to the northern flicker bird, which has red coloring — cross-reference with Disc 3 blends section where Atsabana also appears as a blend example.",
+      "color_application_entries": [
+        { "number": 1,  "paiute": "Atsakweta",                                "english": "red" },
+        { "number": 2,  "paiute": "Atsakwetadu",                              "english": "red one" },
+        { "number": 3,  "paiute": "Atsakweta'a",                              "english": "is red" },
+        { "number": 4,  "paiute": "Eka Atsakwetadu Oo Gea",                   "english": "give this red one to him / her" },
+        { "number": 5,  "paiute": "Maka Atsakwetadu Tumu",                    "english": "buy that red one" },
+        { "number": 6,  "paiute": "Oosoo Atsakwedu Pesa Tabua'a",             "english": "that red one looks good or pretty", "notes": "Source prints 'Atsakwedu' — likely print error for 'Atsakwetadu'; verify against audio" },
+        { "number": 7,  "paiute": "Esoo Paba'yoo Unu Atsakweta'a",            "english": "this big one is real red" },
+        { "number": 8,  "paiute": "Masoo Atsakweta'a",                        "english": "that is red" },
+        { "number": 9,  "paiute": "Ooga Pea kwo Atsakweta'a",                 "english": "his / her mother's hair is red" },
+        { "number": 10, "paiute": "Atsakweta'a Pute Tohakweta'a",             "english": "red or white" },
+        { "number": 11, "paiute": "Nano Atsakweta'a",                         "english": "both are red" },
+        { "number": 12, "paiute": "Atsakwetadu Poohekwetaduno",               "english": "red and blue one" },
+        { "number": 13, "paiute": "Atsatabua'a",                              "english": "looks red" },
+        { "number": 14, "paiute": "Atsatake",                                 "english": "red dots" },
+        { "number": 15, "paiute": "Atsapooeka'yoo",                           "english": "have red eyes" },
+        { "number": 16, "paiute": "Atsakwetadu Tsamoope",                     "english": "mostly red ones" },
+        { "number": 17, "paiute": "Atsakoosegege'e",                          "english": "red car" },
+        { "number": 18, "paiute": "Sumu'yoo Atsakweta'a",                     "english": "one is red" },
+        { "number": 19, "paiute": "Atsakwetadusu'mu",                         "english": "only red ones" },
+        { "number": 20, "paiute": "Ka Atsakwetadu Poone",                     "english": "look at the red one" },
+        { "number": 21, "paiute": "Atsatsotua",                               "english": "red hat" },
+        { "number": 22, "paiute": "Ka Atsakwetadu Yoongake",                  "english": "bring the red one [something in a container]" },
+        { "number": 23, "paiute": "Atsabana",                                 "english": "flicker", "notes": "Northern flicker bird; red coloring gives the compound. Also appears in Disc 3 blends section as a tsa- blend example." }
+      ]
+    },
+
+    {
+      "lesson_number": 35,
+      "title": "Poone [see, watch, look]",
+      "audio_file": "3 Poone.m4a",
+      "page": "4.3",
+      "category": "verb_paradigm",
+      "notes": "Full paradigm for Poone (see/look/watch). Parallel structure to Disc 3 Lesson 28 (Tuka/eat) and Disc 4 Lesson 33 (Nadakwunae/jump). Encodes posture during action (sitting, standing, laying), continuity, number (two, group), directionality (come to see, went and returned), and modality (might see, want to see, ask to see). Entry 21 includes a full example sentence. Flag: entries 1 and 5 are both printed as 'Poonekwu' — entry 1 is labeled 'will or going to see [future tense]' and entry 5 as 'going to see' with no tense label. May be a print duplicate or a subtle distinction; verify against audio.",
+      "verb_forms": [
+        { "paiute": "Poonekwu",        "english": "will or going to see [future tense]" },
+        { "paiute": "Poone'hookwu",    "english": "going to see [present tense]" },
+        { "paiute": "Poonepu",         "english": "seen or saw [past tense]" },
+        { "paiute": "Poonegakwu",      "english": "going to a place to see" },
+        { "paiute": "Poonekwu",        "english": "going to see", "notes": "Duplicate of entry 1 in source — no tense label here; verify against audio for possible distinction" },
+        { "paiute": "Poonegatu",       "english": "sitting and looking" },
+        { "paiute": "Poonekwunu",      "english": "standing and looking" },
+        { "paiute": "Poonedape",       "english": "laying down watching or watching continuously" },
+        { "paiute": "Poonenata'a",     "english": "three or more persons, a group sitting and watching" },
+        { "paiute": "Poonedyukwe",     "english": "two persons sitting and looking" },
+        { "paiute": "Poonepunne",      "english": "looking / watching for awhile or continuously" },
+        { "paiute": "Poonetsagate",    "english": "slowly looking about" },
+        { "paiute": "Poonebodote",     "english": "going back and forth looking" },
+        { "paiute": "Poone'hootooa",   "english": "went seen and returned" },
+        { "paiute": "Poonegena",       "english": "come to see" },
+        { "paiute": "Pooneke",         "english": "saw or seen coming" },
+        { "paiute": "Pooneka",         "english": "saw or seen while going" },
+        { "paiute": "Poonedooa",       "english": "might see" },
+        { "paiute": "Nepoone",         "english": "want to see" },
+        { "paiute": "Poonetungu",      "english": "ask to see" },
+        {
+          "paiute": "Poone'se",
+          "english": "was or will be done before the next action",
+          "example_sentence": {
+            "paiute": "Umu Poone'se Nu Pesa Nakooma",
+            "english": "after I saw them I felt better"
+          }
+        }
+      ]
+    },
+
+    {
+      "lesson_number": 36,
+      "title": "Numma [body condition]",
+      "audio_file": "4 Numma.m4a",
+      "page": "4.4",
+      "category": "phrases",
+      "notes": "Numma is a broad-meaning word covering hurt, sick, ache, or any kind of feeling or bodily condition. Lesson is presented as 18 contextual phrases and sentences. Flag on entry 13: source begins the sentence with 'How' — this may be a Numu discourse particle or an artifact of the print layout; verify against audio. Nummadu (entry 14) = the sick person (noun form). Nummakwu (entry 11) = will feel better (future tense suffix -kwu applied). Numma'hoo (entries 9-10) = got sick (just-past form). Numma'hoodooa (entry 15) = might get sick.",
+      "entries": [
+        { "paiute": "Nu Pesa Numma",                                 "english": "I feel good" },
+        { "paiute": "Nu Tubetse Pesa Numma",                         "english": "I really feel good" },
+        { "paiute": "Nu Ki Pesa Numma",                              "english": "I don't feel well" },
+        { "paiute": "E Tsopege Numma",                               "english": "I have a headache" },
+        { "paiute": "Hayoo U Numma?",                                "english": "how do you feel?" },
+        { "paiute": "Nu Sagwa'ne Pesa Numma",                        "english": "I am feeling a little better" },
+        { "paiute": "Nu Mee'hoosoo Numma",                           "english": "I am feeling the same" },
+        { "paiute": "Nu Toesoo Numma",                               "english": "I am still sick" },
+        { "paiute": "Etze'e Tsona Numma'hoo",                        "english": "John got sick yesterday" },
+        { "paiute": "Nu Numma'hoo",                                  "english": "I got sick" },
+        { "paiute": "Moo'a Nu Pesa Nummakwu",                        "english": "I will feel better tomorrow" },
+        { "paiute": "Hanootu U Numma?",                              "english": "where are you hurting?" },
+        { "paiute": "How Manena U Koota Numma?",                     "english": "how come your neck hurts?", "notes": "Source begins with 'How' — may be a Numu discourse/interrogative particle or print artifact; verify against audio" },
+        { "paiute": "Soo Nummadu Ki Pesa Tabua'a",                   "english": "the sick person doesn't look well" },
+        { "paiute": "Yooe Namadabooe U Numma'hoodooa",               "english": "dress warm, you might get sick" },
+        { "paiute": "Pesa U Numma'se U Poonedooa",                   "english": "I'll see you after you feel better" },
+        { "paiute": "Etze'e Nu Numma'se Meno'o Nu Pesa Numma",       "english": "yesterday I was sick, now I feel better" },
+        { "paiute": "U ha'a Ki Pesa Numma?",                         "english": "you don't feel well?" }
+      ]
+    },
+
+    {
+      "lesson_number": 37,
+      "title": "ha'a [questions]",
+      "audio_file": "5 ha'a.m4a",
+      "page": "4.5",
+      "category": "grammar_questions",
+      "notes": "Ha'a is described as a special form to ask questions — functions as a yes/no question marker inserted into a statement to form a question. It appears immediately after the subject (U ha'a = do you...?) or after a demonstrative (Esoo ha'a = is this...?). 23 example questions across diverse contexts. Entry 19 has a trailing slash in the source (Haga ha'a U Poonegena? /) — print artifact; transcribed as question mark. Vocabulary appearing here that cross-references other lessons: Tukapu (ate — Disc 3 Tuka paradigm), Poonegena (come to see — Disc 4 Lesson 35), Tumukwu (going to buy — Disc 4 Lesson 38).",
+      "entries": [
+        { "paiute": "U ha'a Eka Petzape?",                           "english": "do you like this?" },
+        { "paiute": "U ha'a Nummeno Meakwu?",                        "english": "are you going with us?" },
+        { "paiute": "U ha'a Ooka Poone?",                            "english": "do or did you see that?" },
+        { "paiute": "U ha'a Umu Soopedakwatoo?",                     "english": "do you know them?" },
+        { "paiute": "Esoo ha'a Ummetu?",                             "english": "is this yours?" },
+        { "paiute": "U ha'a A Wumma?",                               "english": "do you feel it?" },
+        { "paiute": "U ha'a Mo'asoo Tukapu?",                        "english": "did you already eat / have you eaten already?" },
+        { "paiute": "Umu ha'a Mo'asoo Mea'a?",                       "english": "did they already go / they're already gone?" },
+        { "paiute": "U ha'a Eka Tumukwu?",                           "english": "are you going to buy this?" },
+        { "paiute": "Eka ha'a U Tutzea?",                            "english": "did you choose this?" },
+        { "paiute": "No'oko ha'a Hee Nasoo'ahoo?",                   "english": "did everything get eaten up?" },
+        { "paiute": "U ha'a E Poonegena?",                           "english": "did you come to see me?" },
+        { "paiute": "Oosoo ha'a Tsona?",                             "english": "is that John?" },
+        { "paiute": "Oosoo ha'a U Nanumu?",                          "english": "is he / she your relative?" },
+        { "paiute": "Mu ha'a Mo'asoo?",                              "english": "are you guys ready / you all ready?" },
+        { "paiute": "U ha'a Mo'asoo Eka Poone?",                     "english": "have you already seen this?" },
+        { "paiute": "Esoo ha'a Nunukwe?",                            "english": "is this heavy?" },
+        { "paiute": "Soo Kedu ha'a Tu Nahabana Poone?",              "english": "did the groundhog see his shadow?" },
+        { "paiute": "Haga ha'a U Poonegena?",                        "english": "who did you come to see?" },
+        { "paiute": "U ha'a Eka Saakwu?",                            "english": "are you going to cook this?" },
+        { "paiute": "Toge'yoo ha'a?",                                "english": "is it enough or is it ok?" },
+        { "paiute": "Masoo ha'a Umme Sadu'u?",                       "english": "is that your dog?" },
+        { "paiute": "Soo Waha Nadutsungudu ha'a Makwu'hoo?",         "english": "did the second one win?" }
+      ]
+    },
+
+    {
+      "lesson_number": 38,
+      "title": "-kwu [future tense]",
+      "audio_file": "6 -kwu.m4a",
+      "page": "4.6",
+      "category": "grammar_suffix",
+      "suffix": "-kwu",
+      "suffix_meaning": "future tense — indicates action that will happen",
+      "notes": "21 verb roots shown with -kwu suffix applied. The suffix attaches directly to the end of the verb root. Entry 21 (Hoobea = song) is notable: the combined form is Hoobeadookwu rather than *Hoobeakwu — a compound construction using an intermediate -doo- element likely meaning 'make' (will make song). Flag for app grammar layer: this may indicate Hoobea is a noun (song), not a verb root, and requires a mediating verb to take tense suffixes.",
+      "suffix_entries": [
+        { "base": "Hebe",          "base_gloss": "drink",         "combined": "Hebekwu",          "combined_gloss": "going to drink" },
+        { "base": "Numoohi",       "base_gloss": "baby sit",      "combined": "Numoohikwu",        "combined_gloss": "going to baby sit" },
+        { "base": "Yadooa",        "base_gloss": "speak / talk",  "combined": "Yadooakwu",         "combined_gloss": "will speak / talk" },
+        { "base": "Katu",          "base_gloss": "sit [one person]","combined": "Katukwu",         "combined_gloss": "going to sit" },
+        { "base": "Patsa",         "base_gloss": "kill",          "combined": "Patsakwu",          "combined_gloss": "going to kill" },
+        { "base": "Tupoya",        "base_gloss": "to climb",      "combined": "Tupoyakwu",         "combined_gloss": "going to climb" },
+        { "base": "Yaga",          "base_gloss": "cry",           "combined": "Yagakwu",           "combined_gloss": "will cry" },
+        { "base": "Nuga",          "base_gloss": "dance",         "combined": "Nugakwu",           "combined_gloss": "going to dance" },
+        { "base": "Tuka",          "base_gloss": "eat",           "combined": "Tukakwu",           "combined_gloss": "going to eat" },
+        { "base": "Maka",          "base_gloss": "feed",          "combined": "Makakwu",           "combined_gloss": "going to feed" },
+        { "base": "Saa",           "base_gloss": "cook",          "combined": "Saakwu",            "combined_gloss": "going to cook" },
+        { "base": "Poone",         "base_gloss": "see / look",    "combined": "Poonekwu",          "combined_gloss": "going to see" },
+        { "base": "Tumu",          "base_gloss": "buy",           "combined": "Tumukwu",           "combined_gloss": "going to buy" },
+        { "base": "Tubo",          "base_gloss": "to write",      "combined": "Tubokwu",           "combined_gloss": "going to write" },
+        { "base": "Tunea",         "base_gloss": "to read",       "combined": "Tuneakwu",          "combined_gloss": "going to read" },
+        { "base": "Tuhowae",       "base_gloss": "to hunt",       "combined": "Tuhowaekwu",        "combined_gloss": "going to hunt" },
+        { "base": "Tunekwuhu",     "base_gloss": "sing",          "combined": "Tunekwuhukwu",      "combined_gloss": "going to sing" },
+        { "base": "Natunetooe",    "base_gloss": "being taught",  "combined": "Natunetooekwu",     "combined_gloss": "going to learn / be taught" },
+        { "base": "Kosokwae",      "base_gloss": "whistle",       "combined": "Kosokwaekwu",       "combined_gloss": "going to whistle" },
+        { "base": "Tanomane",      "base_gloss": "run",           "combined": "Tanomanekwu",       "combined_gloss": "going to run" },
+        { "base": "Hoobea",        "base_gloss": "song",          "combined": "Hoobeadookwu",      "combined_gloss": "will make song", "notes": "Intermediate -doo- element in combined form (not plain -kwu attachment) — likely a compound 'make-song-future'; Hoobea may be a noun requiring a mediating verb to take tense suffixes. Flag for grammar layer." }
+      ]
+    },
+
+    {
+      "lesson_number": 39,
+      "title": "-hookwu [present tense]",
+      "audio_file": "7 -hookwu.m4a",
+      "page": "4.7",
+      "category": "grammar_suffix",
+      "suffix": "-hookwu",
+      "suffix_meaning": "present / near-future tense — indicates imminent or intended action",
+      "notes": "21 verb roots shown with -hookwu suffix applied via glottal stop + hookwu (e.g., Tuka + 'hookwu = Tuka'hookwu). Source labels this 'present tense' but all translations read as 'will / going to', suggesting -hookwu marks near-future or intended action rather than ongoing present. Contrast with -kwu (Lesson 38) which is labeled 'future tense' — the distinction appears to be immediacy of the intended action. Two flags: (1) Entry 11: base form Tubo (write) — combined form printed as Tobo'hookwu, showing a vowel change u→o; verify against audio and cross-reference with Lesson 40 -pu entries where 'to write' appears as Tupo. (2) Entry 19: Masua (plant) — combined form printed as Masua'hokwu, missing one 'o' vs the -hookwu pattern; likely print error.",
+      "suffix_entries": [
+        { "base": "Tuka",       "base_gloss": "eat",           "combined": "Tuka'hookwu",       "combined_gloss": "will / going to eat" },
+        { "base": "Nea",        "base_gloss": "read",          "combined": "Nea'hookwu",        "combined_gloss": "going to read" },
+        { "base": "Hebe",       "base_gloss": "drink",         "combined": "Hebe'hookwu",       "combined_gloss": "going to drink" },
+        { "base": "Yadooa",     "base_gloss": "talk",          "combined": "Yadooa'hookwu",     "combined_gloss": "will speak now" },
+        { "base": "Yaga",       "base_gloss": "cry",           "combined": "Yaga'hookwu",       "combined_gloss": "going to cry" },
+        { "base": "Poone",      "base_gloss": "see",           "combined": "Poone'hookwu",      "combined_gloss": "will see" },
+        { "base": "Katu",       "base_gloss": "sit",           "combined": "Katu'hookwu",       "combined_gloss": "will sit" },
+        { "base": "Patsa",      "base_gloss": "kill",          "combined": "Patsa'hookwu",      "combined_gloss": "going to kill" },
+        { "base": "Nabagea",    "base_gloss": "bath / shower", "combined": "Nabagea'hookwu",    "combined_gloss": "will bath" },
+        { "base": "Tumu",       "base_gloss": "buy",           "combined": "Tumu'hookwu",       "combined_gloss": "going to buy" },
+        { "base": "Tubo",       "base_gloss": "write",         "combined": "Tobo'hookwu",       "combined_gloss": "going to write", "notes": "Vowel change in root: Tubo → Tobo in combined form. Verify against audio. Also see Lesson 40 entry 4 where 'to write' appears as Tupo." },
+        { "base": "Tubengu",    "base_gloss": "ask",           "combined": "Tubengu'hookwu",    "combined_gloss": "going to ask" },
+        { "base": "Gea / Kea",  "base_gloss": "give",          "combined": "Gea'hookwu",        "combined_gloss": "going to give" },
+        { "base": "Peda",       "base_gloss": "make fire",     "combined": "Peda'hookwu",       "combined_gloss": "will make fire" },
+        { "base": "Nobene",     "base_gloss": "visit",         "combined": "Nobene'hookwu",     "combined_gloss": "going to visit" },
+        { "base": "Mea",        "base_gloss": "go",            "combined": "Mea'hookwu",        "combined_gloss": "going to go" },
+        { "base": "Saa",        "base_gloss": "cook",          "combined": "Saa'hookwu",        "combined_gloss": "going to cook" },
+        { "base": "Maka",       "base_gloss": "feed",          "combined": "Maka'hookwu",       "combined_gloss": "going to feed" },
+        { "base": "Masua",      "base_gloss": "plant",         "combined": "Masua'hokwu",       "combined_gloss": "going to plant", "notes": "Source prints Masua'hokwu — likely print error for Masua'hookwu (one 'o' missing); verify against audio" },
+        { "base": "Nadakwunae", "base_gloss": "jump",          "combined": "Nadakwunae'hookwu", "combined_gloss": "going to jump" },
+        { "base": "Tunekwuhu",  "base_gloss": "sing",          "combined": "Tunekwuhu'hookwu",  "combined_gloss": "going to sing" }
+      ]
+    },
+
+    {
+      "lesson_number": 40,
+      "title": "-pu [past tense]",
+      "audio_file": "8 -pu.m4a",
+      "page": "4.8",
+      "category": "grammar_suffix",
+      "suffix": "-pu",
+      "suffix_meaning": "past tense — indicates completed action",
+      "notes": "20 verb roots with -pu suffix. The suffix attaches directly to the verb root. Two flags requiring audio verification: (1) Entry 4 lists base form as 'Tupo' for 'to write', but Lesson 38 (-kwu) and Lesson 42 (-kooha) both use 'Tubo' for write — Tupo may be a print error for Tubo, or a distinct related form; verify against audio. (2) Entry 11: source prints 'bloaded' — clearly a typo for 'bloated'; corrected in transcription. Entry 15 (Tohatae = state of being white) is interesting — past tense form 'faded' suggests Tohatae encodes a whiteness/fading state rather than the base color white (Tohakweta from Disc 3).",
+      "suffix_entries": [
+        { "base": "Patsa",    "base_gloss": "kill",                  "combined": "Patsapu",     "combined_gloss": "killed" },
+        { "base": "Tumu",     "base_gloss": "to buy",                "combined": "Tumupu",      "combined_gloss": "bought" },
+        { "base": "Mea",      "base_gloss": "go",                    "combined": "Meapu",       "combined_gloss": "gone" },
+        { "base": "Tupo",     "base_gloss": "to write",              "combined": "Tupopu",      "combined_gloss": "wrote", "notes": "Source prints Tupo for 'write'; Lessons 38 and 42 use Tubo for the same meaning. Possible print error. Verify against audio." },
+        { "base": "Masua",    "base_gloss": "to plant",              "combined": "Masuapu",     "combined_gloss": "planted" },
+        { "base": "Peda",     "base_gloss": "make fire",             "combined": "Pedapu",      "combined_gloss": "made fire" },
+        { "base": "Maka",     "base_gloss": "give to feed",          "combined": "Makapu",      "combined_gloss": "fed" },
+        { "base": "Nea",      "base_gloss": "read",                  "combined": "Neapu",       "combined_gloss": "read" },
+        { "base": "Pasa",     "base_gloss": "dry",                   "combined": "Pasapu",      "combined_gloss": "dried" },
+        { "base": "Petu",     "base_gloss": "arrive",                "combined": "Petupu",      "combined_gloss": "arrived" },
+        { "base": "Pose",     "base_gloss": "bloat",                 "combined": "Posepu",      "combined_gloss": "bloated", "notes": "Source prints 'bloaded' — corrected to 'bloated'" },
+        { "base": "Tuazu",    "base_gloss": "freeze",                "combined": "Tuazupu",     "combined_gloss": "frozen" },
+        { "base": "Samee",    "base_gloss": "wet",                   "combined": "Sameepu",     "combined_gloss": "something got wet" },
+        { "base": "Nowua",    "base_gloss": "move someplace",        "combined": "Nowuapu",     "combined_gloss": "moved" },
+        { "base": "Tohatae",  "base_gloss": "state of being white",  "combined": "Tohatae'pu",  "combined_gloss": "faded" },
+        { "base": "Tunetooe", "base_gloss": "teach",                 "combined": "Tunetooepu",  "combined_gloss": "taught" },
+        { "base": "Patooe",   "base_gloss": "melt",                  "combined": "Patooepu",    "combined_gloss": "melted" },
+        { "base": "Poone",    "base_gloss": "see",                   "combined": "Poonepu",     "combined_gloss": "saw or seen" },
+        { "base": "Unne",     "base_gloss": "say",                   "combined": "Unnepu",      "combined_gloss": "what was said" },
+        { "base": "Nabagea",  "base_gloss": "bathe / swim",          "combined": "Nabageapu",   "combined_gloss": "bathed" }
+      ]
+    },
+
+    {
+      "lesson_number": 41,
+      "title": "-ku ending",
+      "audio_file": "9 -ku.m4a",
+      "page": "4.9",
+      "category": "grammar_suffix",
+      "suffix": "-ku",
+      "suffix_meaning": "causative / benefactive — when somebody does the verb action for somebody else, causing verb action to occur",
+      "notes": "18 verb roots with -ku suffix. Most attach cleanly (Saa + -ku = Saaku, Tumu + -ku = Tumuku). However, two entries show significant base-form transformation: (1) Entry 2: Wunu [stand] + -ku = Tsakwunuku — the prefix Tsa- is added; (2) Entry 6: Mea [go] + -ku = Tsameaku — again Tsa- prefix appears with vowel modification. This Tsa- element may be a productive applicative or causative morpheme that appears when -ku is applied to certain motion/posture verbs. Flag both for grammar layer documentation and audio verification.",
+      "suffix_entries": [
+        { "base": "Tubo",       "base_gloss": "to write",        "combined": "Tuboku",       "combined_gloss": "write for someone" },
+        { "base": "Wunu",       "base_gloss": "stand",           "combined": "Tsakwunuku",   "combined_gloss": "stand something up", "notes": "Base transforms significantly: Wunu + -ku yields Tsakwunuku with Tsa- prefix and -kw- infix. Verify against audio; may indicate a causative morpheme Tsa-." },
+        { "base": "Tsapoone",   "base_gloss": "to show",         "combined": "Tsapooneku",   "combined_gloss": "show someone something" },
+        { "base": "Yooe",       "base_gloss": "warm",            "combined": "Yooeku",        "combined_gloss": "warm something" },
+        { "base": "Tumu",       "base_gloss": "buy",             "combined": "Tumuku",        "combined_gloss": "buy something for someone" },
+        { "base": "Mea",        "base_gloss": "go",              "combined": "Tsameaku",      "combined_gloss": "make something go / start", "notes": "Base transforms: Mea + -ku yields Tsameaku with Tsa- prefix. Same Tsa- morpheme as entry 2. Verify against audio." },
+        { "base": "Kano",       "base_gloss": "fill container",  "combined": "Kanoku",        "combined_gloss": "to fill a container" },
+        { "base": "Tuazu",      "base_gloss": "freeze",          "combined": "Tuazuku",       "combined_gloss": "to freeze something" },
+        { "base": "Namoo",      "base_gloss": "divide",          "combined": "Namooku",       "combined_gloss": "divide up for persons" },
+        { "base": "Tsakwene",   "base_gloss": "hang",            "combined": "Tsakweneku",    "combined_gloss": "hang something up" },
+        { "base": "Mabetsabe",  "base_gloss": "fix",             "combined": "Mabetsabeku",   "combined_gloss": "fix something for someone" },
+        { "base": "Tsa",        "base_gloss": "pour",            "combined": "Tsaku",         "combined_gloss": "pour for someone" },
+        { "base": "Tsakona",    "base_gloss": "open",            "combined": "Tsakonaku",     "combined_gloss": "open for someone" },
+        { "base": "Kwasuya",    "base_gloss": "put shirt on",    "combined": "Kwasuyaku",     "combined_gloss": "help put shirt on" },
+        { "base": "Saa",        "base_gloss": "cook",            "combined": "Saaku",          "combined_gloss": "cook for someone" },
+        { "base": "Kootoona",   "base_gloss": "put wood on",     "combined": "Kootoonaku",    "combined_gloss": "put wood in stove" },
+        { "base": "Huga",       "base_gloss": "to cool",         "combined": "Hugaku",         "combined_gloss": "cool off for someone" },
+        { "base": "Tanega",     "base_gloss": "put shoe on",     "combined": "Tanegaku",      "combined_gloss": "help put shoe on" }
+      ]
+    },
+
+    {
+      "lesson_number": 42,
+      "title": "-kooha ending",
+      "audio_file": "10 -kooha.m4a",
+      "page": "4.10",
+      "category": "grammar_suffix",
+      "suffix": "-kooha",
+      "suffix_meaning": "inchoative — restart or beginning of action; 'start to [verb]'",
+      "notes": "21 verb roots with -kooha suffix. Most attach via glottal stop + kooha (e.g., Yaga'kooha). Cross-reference: Nadakwunaekooha (started jumping) appeared in Lesson 33 verb paradigm — confirms -kooha pattern. Flag: Entry 19 (Tohatae = fade) — combined form printed as Tohataekooha without apostrophe separator, while all other entries use apostrophe (e.g., Yaga'kooha). May be a print inconsistency; verify against audio. Note the -kooha lesson label is 'restart action' suggesting this suffix applies when resuming a previously stopped action, not just any beginning.",
+      "suffix_entries": [
+        { "base": "Yaga",       "base_gloss": "cry",           "combined": "Yaga'kooha",       "combined_gloss": "start to cry" },
+        { "base": "Hebe",       "base_gloss": "drink",         "combined": "Hebe'kooha",        "combined_gloss": "start to drink" },
+        { "base": "Tuka",       "base_gloss": "eat",           "combined": "Tuka'kooha",        "combined_gloss": "start to eat" },
+        { "base": "Ni",         "base_gloss": "burn",          "combined": "Ni'kooha",          "combined_gloss": "start to burn" },
+        { "base": "Nakoe",      "base_gloss": "fight",         "combined": "Nakoe'kooha",       "combined_gloss": "start to fight" },
+        { "base": "Tupoya",     "base_gloss": "to climb",      "combined": "Tupoya'kooha",      "combined_gloss": "start to climb" },
+        { "base": "Yadooa",     "base_gloss": "talk / speak",  "combined": "Yadooa'kooha",      "combined_gloss": "start to speak" },
+        { "base": "Akwesa",     "base_gloss": "sneeze",        "combined": "Akwesa'kooha",      "combined_gloss": "start sneezing" },
+        { "base": "Pose",       "base_gloss": "bloat",         "combined": "Pose'kooha",        "combined_gloss": "started to bloat" },
+        { "base": "Pu'ha",      "base_gloss": "bleed",         "combined": "Pu'hakooha",        "combined_gloss": "start to bleed" },
+        { "base": "Nuga",       "base_gloss": "dance",         "combined": "Nuga'kooha",        "combined_gloss": "started dancing" },
+        { "base": "Tutsebooe",  "base_gloss": "boil",          "combined": "Tutsebooe'kooha",   "combined_gloss": "started boiling" },
+        { "base": "Kwana",      "base_gloss": "odor / smell",  "combined": "Kwana'kooha",       "combined_gloss": "start to stink" },
+        { "base": "Saa",        "base_gloss": "cook",          "combined": "Saa'kooha",         "combined_gloss": "started cooking" },
+        { "base": "Tubo",       "base_gloss": "to write",      "combined": "Tubo'kooha",        "combined_gloss": "start writing" },
+        { "base": "Tunea",      "base_gloss": "to read",       "combined": "Tunea'kooha",       "combined_gloss": "start reading" },
+        { "base": "Powma",      "base_gloss": "rain",          "combined": "Powma'kooha",       "combined_gloss": "start to rain" },
+        { "base": "Suta",       "base_gloss": "mad",           "combined": "Suta'kooha",        "combined_gloss": "start to get mad" },
+        { "base": "Tohatae",    "base_gloss": "fade",          "combined": "Tohataekooha",      "combined_gloss": "start to fade", "notes": "Source prints Tohataekooha without apostrophe separator, unlike all other entries in this lesson which use glottal stop + kooha. Possible print inconsistency; verify against audio." },
+        { "base": "Oe'e",       "base_gloss": "vomit",         "combined": "Oe'ekooha",         "combined_gloss": "start to vomit" },
+        { "base": "Numma",      "base_gloss": "ache",          "combined": "Numma'kooha",       "combined_gloss": "start to ache" }
+      ]
+    },
+
+    {
+      "lesson_number": 43,
+      "title": "Sentence I",
+      "audio_file": "11 Sentence I.m4a",
+      "page": "4.11",
+      "category": "sentence_structure",
+      "notes": "14 example sentences with word-by-word component glosses. Source presents each sentence with English word labels above, the Numu sentence in bold below, and the full English translation on the right. Demonstrates location markers (Sawabedooha = sagebrush-under, Kibagooba = mountain-on top, Sungabekwae = tree-in), progressive aspect (-wunu ending on Tuka and Maka), possessive family terms (Moo'a = mother's mother/grandma, Pedoo'o = mother's sister/aunt), and subject/object word order. Soo identifies the subject of a sentence; Ka identifies the object.",
+      "sentence_entries": [
+        {
+          "paiute": "Soo Kammu Sawabedooha Katu.",
+          "english": "The rabbit is sitting underneath the sagebrush.",
+          "word_glosses": { "Soo": "the (subject marker)", "Kammu": "rabbit", "Sawabedooha": "sagebrush-under", "Katu": "sit" }
+        },
+        {
+          "paiute": "Soo Moohoo'o Sungabekwae Katu.",
+          "english": "The owl is sitting in the tree.",
+          "word_glosses": { "Soo": "the (subject marker)", "Moohoo'o": "owl", "Sungabekwae": "tree-in", "Katu": "sit" }
+        },
+        {
+          "paiute": "Ewa'yoo Nubabe Kibagooba.",
+          "english": "Lots of snow on top of the mountain.",
+          "word_glosses": { "Ewa'yoo": "lot", "Nubabe": "snow", "Kibagooba": "mountain-on top" }
+        },
+        {
+          "paiute": "Soo Hootseba'a Ka Kootsoogooba Katu.",
+          "english": "The bird is sitting on top of the cow.",
+          "word_glosses": { "Soo": "the (subject marker)", "Hootseba'a": "bird", "Ka": "the (object marker)", "Kootsoogooba": "cow-on top", "Katu": "sit" }
+        },
+        {
+          "paiute": "Soo Kammu Paba Nakaga'yoo.",
+          "english": "The rabbit has big ears.",
+          "word_glosses": { "Soo": "the (subject marker)", "Kammu": "rabbit", "Paba": "big", "Nakaga'yoo": "ear-have" }
+        },
+        {
+          "paiute": "Soo Kedu Tupegooba Habedape.",
+          "english": "The groundhog is lying on top of rock.",
+          "word_glosses": { "Soo": "the (subject marker)", "Kedu": "groundhog", "Tupegooba": "rock-on top", "Habedape": "lay-continuously" }
+        },
+        {
+          "paiute": "Soo Kootsoo Ka Wahabu Tuka.",
+          "english": "The cow eats the grass.",
+          "word_glosses": { "Soo": "the (subject marker)", "Kootsoo": "cow", "Ka": "the (object marker)", "Wahabu": "grass", "Tuka": "eat" }
+        },
+        {
+          "paiute": "Soo Kootsoo Ka Wahabu Tukawunu.",
+          "english": "The cow is eating the grass.",
+          "word_glosses": { "Soo": "the (subject marker)", "Kootsoo": "cow", "Ka": "the (object marker)", "Wahabu": "grass", "Tukawunu": "eat (-wunu progressive ending)" }
+        },
+        {
+          "paiute": "Soo Nana Ka Kootsoo Maka.",
+          "english": "The man feeds the cow.",
+          "word_glosses": { "Soo": "the (subject marker)", "Nana": "man", "Ka": "the (object marker)", "Kootsoo": "cow", "Maka": "feed" }
+        },
+        {
+          "paiute": "Soo Nana Ka Kootsoo Makawunu.",
+          "english": "The man is feeding the cow.",
+          "word_glosses": { "Soo": "the (subject marker)", "Nana": "man", "Ka": "the (object marker)", "Kootsoo": "cow", "Makawunu": "feed (-wunu progressive ending)" }
+        },
+        {
+          "paiute": "Soo Pookoo Unu Toohookweta'a.",
+          "english": "The horse is real black.",
+          "word_glosses": { "Soo": "the (subject marker)", "Pookoo": "horse", "Unu": "very / real", "Toohookweta'a": "is real black" }
+        },
+        {
+          "paiute": "Nu E Moo'a Kuku Poone.",
+          "english": "I see my grandma's foot.",
+          "word_glosses": { "Nu": "I", "E": "my", "Moo'a": "mother's mother (grandma)", "Kuku": "feet", "Poone": "see" },
+          "notes": "Moo'a = mother's mother"
+        },
+        {
+          "paiute": "Nu E Pedoo'o Poonegakwu.",
+          "english": "I'm going to go see my aunt.",
+          "word_glosses": { "Nu": "I", "E": "my", "Pedoo'o": "mother's sister (aunt)", "Poonegakwu": "see-going to a place [future]" },
+          "notes": "Pedoo'o = mother's sister"
+        },
+        {
+          "paiute": "Etze'e Nu Etza'a Poone.",
+          "english": "Yesterday I saw a coyote.",
+          "word_glosses": { "Etze'e": "yesterday", "Nu": "I", "Etza'a": "coyote", "Poone": "see" }
+        }
+      ]
+    },
+
+    {
+      "lesson_number": 44,
+      "title": "Sentence II",
+      "audio_file": "12 Sentence II.m4a",
+      "page": "4.12",
+      "category": "sentence_structure",
+      "notes": "11 example sentences continuing from Lesson 43. Source reinforces that Soo identifies the subject and Ka identifies the object of a sentence. Introduces Yukwe (two sitting), Wanga'a (younger brother), Pedoo'o (mother's sister/aunt). The final sentence is a math/riddle sentence: three crows on a fence, one flies off — how many are left? Introduces several new vocabulary items: Tooebetse'e (young man), Moogoosoo (lizard), Muhagoobakwae (moon-over), Koodeagooba (fence-on top), Yotse'hooka (fly). Note: two different forms for 'two' appear across entries 6 and 9 — Wahoo vs Wa'hoo; compare also Waha'yoo (entry 8) — may reflect different grammatical forms or counting contexts; verify across Disc 2 Numbers lesson.",
+      "sentence_entries": [
+        {
+          "paiute": "Soo Kootsoo Muhagoobakwae Nadakwunae.",
+          "english": "The cow jumped over the moon.",
+          "word_glosses": { "Soo": "the (subject marker)", "Kootsoo": "cow", "Muhagoobakwae": "moon-over", "Nadakwunae": "jump" },
+          "notes": "Source notes: Soo identifies subject of sentence; Ka identifies object of sentence"
+        },
+        {
+          "paiute": "Soo Nana Ka Toopookoo Petzape.",
+          "english": "The man likes the black horse.",
+          "word_glosses": { "Soo": "the (subject marker)", "Nana": "man", "Ka": "the (object marker)", "Toopookoo": "black horse", "Petzape": "like" }
+        },
+        {
+          "paiute": "E Wanga'a Yoohoo Tukabu Petzape.",
+          "english": "My brother [younger] likes fried bread.",
+          "word_glosses": { "E": "my", "Wanga'a": "younger brother", "Yoohoo": "grease / fat", "Tukabu": "bread", "Petzape": "like" },
+          "notes": "Wanga'a = younger brother. Yoohoo Tukabu = fried bread (fat + bread)"
+        },
+        {
+          "paiute": "Soo Mogo'ne Nakwe Unu Metse'yoo.",
+          "english": "The lady's dress is very short.",
+          "word_glosses": { "Soo": "the (subject marker)", "Mogo'ne": "lady", "Nakwe": "dress", "Unu": "very", "Metse'yoo": "short" }
+        },
+        {
+          "paiute": "E Pedoo'o Mago'o Unu Nunukwe.",
+          "english": "My aunt's bag or purse is very heavy.",
+          "word_glosses": { "E": "my", "Pedoo'o": "aunt (mother's sister)", "Mago'o": "bag", "Unu": "very", "Nunukwe": "heavy" },
+          "notes": "Pedoo'o [aunt] = mother's sister"
+        },
+        {
+          "paiute": "Etze'e Nu Wahoo Moogoosoo Poone.",
+          "english": "Yesterday I saw two lizards.",
+          "word_glosses": { "Etze'e": "yesterday", "Nu": "I", "Wahoo": "two", "Moogoosoo": "lizard", "Poone": "see" }
+        },
+        {
+          "paiute": "Soo Tooebetse'e Atsakwetadu Kwasuga'yoo.",
+          "english": "The young man has a red shirt.",
+          "word_glosses": { "Soo": "the (subject marker)", "Tooebetse'e": "young man", "Atsakwetadu": "red one", "Kwasuga'yoo": "shirt-have" }
+        },
+        {
+          "paiute": "Waha'yoo Kootsoo Sungabedooha Yukwe.",
+          "english": "Two cows sitting under the tree.",
+          "word_glosses": { "Waha'yoo": "two", "Kootsoo": "cow", "Sungabedooha": "tree-under", "Yukwe": "two sitting" },
+          "notes": "Yukwe = two sitting. Compare Wahoo (entry 6) and Wa'hoo (entry 9) — multiple forms of 'two' may reflect grammatical or counting context differences."
+        },
+        {
+          "paiute": "Etze'e Nu Sumu'hoo Pookoo Wa'hoo Kootsoono Poone.",
+          "english": "Yesterday I saw one horse and two cows.",
+          "word_glosses": { "Etze'e": "yesterday", "Nu": "I", "Sumu'hoo": "one", "Pookoo": "horse", "Wa'hoo": "two", "Kootsoono": "cows", "Poone": "see" }
+        },
+        {
+          "paiute": "Soo Kammu Sawabedoohayoona Tanomane.",
+          "english": "The rabbit ran from underneath the sagebrush.",
+          "word_glosses": { "Soo": "the (subject marker)", "Kammu": "rabbit", "Sawabedoohayoona": "sagebrush-from under", "Tanomane": "run" }
+        },
+        {
+          "paiute": "Pahe'yoo Ada Koodeagooba Ata'a, Sumu'yoo Yotse'hooka Hanoo'yoo Pena'we?",
+          "english": "Three crows sitting on the fence, one flew off. How many left?",
+          "word_glosses": {
+            "Pahe'yoo": "three",
+            "Ada": "crow",
+            "Koodeagooba": "fence-on top",
+            "Ata'a": "sit (one person)",
+            "Sumu'yoo": "one",
+            "Yotse'hooka": "fly (flew off)",
+            "Hanoo'yoo": "how many",
+            "Pena'we": "left"
+          },
+          "notes": "Math / riddle sentence. Demonstrates counting, number words, and verb forms in a conversational context."
+        }
+      ]
+    }
+  ]
+}

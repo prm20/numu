@@ -1,0 +1,677 @@
+Here’s a full context doc you can reuse later. I’ll start with a high-level summary, then keep everything else (what we did, where things are) in detail.
+---
+High-Level Summary / Context
+
+You’re building Numu: a Django-based backend for a Northern Paiute language project. The data for the project comes from four discs, each represented as a JSON file (numu_disc1.json – numu_disc4.json). The goal so far has been:
+• Get a custom Django management command working to import all this disc JSON into the database.
+• Make sure the data model is set up correctly (Disc, Lesson, Entry, Lexeme, etc.).
+• Run imports for Discs 1–4 so the database is fully populated.
+• Clean up the Django admin so you can actually explore and QA the data (filter by disc, clickable titles, etc.).
+• Keep things future-proof for a later React / React Native frontend and potential AI features (e.g., search, tutoring, etc.) by relying on stable IDs, not fragile text fields.
+
+So right now you have:
+• A working backend project (backend/) with the numu app.
+• A working custom import command import_discs that reads from your json directory.
+• All four discs imported into the database (lessons, entries, lexemes, flags, and other associated forms).
+• Django admin customized enough to:
+  • Filter lessons by disc.
+  • Use lesson titles as the clickable link.
+  • Begin to expose disc info for entries via relationships (lesson → disc).
+
+No frontend (React / React Native) is implemented yet; the backend and admin are ready for it.
+---
+Project Overview
+• Project root (backend):/Users/pdogg/Documents/numu/dev/backend
+• Main components:
+  • manage.py – standard Django entrypoint.
+  • config/ – Django project settings:
+    • config.settings is in use (per runserver output).
+  • numu/ – Django app for your language data.
+    • models.py – defines Disc, Lesson, Entry, Lexeme, and related models (flags, forms, etc.).
+    • admin.py – auto-registers all models + a custom admin for Lesson (and possibly later Entry).
+    • management/commands/import_discs.py – custom management command to import disc JSON into the DB.
+    • migrations/ – DB migrations for the numu app.
+  • json/ – folder with disc JSON files:
+    • json/numu_disc1.json
+    • json/numu_disc2.json
+    • json/numu_disc3.json
+    • json/numu_disc4.json
+• Environment:
+  • Virtualenv: .venv inside backend.
+  • Django version: 4.2.28.
+  • Python version: in .venv (seen under .venv/lib/python3.13/site-packages).
+---
+What We Set Up and Fixed
+1. Making the import_discs Management Command Work
+
+Initial issue:
+
+You tried to run:
+python manage.py import_discs --disc 1 --dry-run --json-dir json
+
+
+Django said:
+
+> Unknown command: 'import_discs'
+
+Cause:
+
+import_discs.py was at the project root:
+• backend/import_discs.py
+
+But Django expects custom management commands inside an app, under:
+• <app_name>/management/commands/
+
+Fix: moved the command and created packages
+
+From backend:
+mkdir -p numu/management/commands
+touch numu/management/__init__.py
+touch numu/management/commands/__init__.py
+mv import_discs.py numu/management/commands/
+
+
+Resulting structure:
+• backend/numu/management/__init__.py
+• backend/numu/management/commands/__init__.py
+• backend/numu/management/commands/import_discs.py
+
+After this, Django recognized the import_discs command.
+---
+2. Fixing the JSON_DIR NameError
+
+Next error when running the command:
+NameError: name 'JSON_DIR' is not defined. Did you mean: 'self.JSON_DIR'?
+
+
+Cause:
+
+Inside Command.add_arguments, the help text used JSON_DIR without self. even though JSON_DIR is a class attribute.
+
+Original snippet:
+parser.add_argument(
+    '--json-dir', type=str,
+    help=f'Directory containing disc JSON files. Default: {JSON_DIR}'
+)
+
+
+Fix:
+
+Edited backend/numu/management/commands/import_discs.py:
+parser.add_argument(
+    '--json-dir', type=str,
+    help=f'Directory containing disc JSON files. Default: {self.JSON_DIR}'
+)
+
+
+That resolved the NameError.
+---
+3. Creating Disc Objects Before Import
+
+After the JSON_DIR fix, running:
+python manage.py import_discs --disc 1 --dry-run --json-dir json
+
+
+gave:
+numu.models.Disc.DoesNotExist: Disc matching query does not exist.
+
+
+Cause:
+
+The importer expects a Disc row with the given id to already exist, e.g.:
+• For --disc 1, it expects Disc.objects.get(id=1) to succeed.
+
+No discs existed yet in the database.
+
+Fix: Creating Disc 1 (and then 2–4) in the admin
+
+We:
+1. Started the dev server:python manage.py runserver
+
+2. Opened the Django admin at:http://127.0.0.1:8000/admin/
+3. Logged in with the superuser account.
+4. Under NUMU → Discs, clicked “Add disc” and created:
+  • Disc 1:
+    • id: 1
+    • title: copied from json/numu_disc1.json → meta.title (originally "Numu Yadooape (Northern Paiute Language)")
+    • dialect: from meta.dialect (e.g. "Pyramid Lake Paiute Tribe")
+    • writing_system: from meta.writing_system (e.g. "Wycliffe")
+    • total_pages: from meta.total_pages (e.g. 14)
+    • notes: optional/blank.
+
+We repeated this pattern for discs 2–4 later:
+• Disc 2:
+  • id: 2
+  • Rest from numu_disc2.json → meta section.
+• Disc 3:
+  • id: 3
+  • Rest from numu_disc3.json.
+• Disc 4:
+  • id: 4
+  • Rest from numu_disc4.json.
+
+Important: The IDs (1–4) are what matter to the importer. Titles are cosmetic and safe to change.
+---
+4. Running the Import Commands
+Disc 1 – Dry Run
+python manage.py import_discs --disc 1 --dry-run --json-dir json
+
+
+Output:
+DRY RUN — no database writes
+
+Importing Disc 1: json/numu_disc1.json
+  Disc 1: 9 lessons, 200 entries, 0 new lexemes, 0 flags
+
+=== Import Summary ===
+  lessons                        9
+  entries                        200
+
+DRY RUN complete — no data written
+
+
+Success: importer can read the JSON and count lessons/entries.
+Disc 1 – Real Import
+python manage.py import_discs --disc 1 --json-dir json
+
+
+Output:
+Importing Disc 1: json/numu_disc1.json
+  Disc 1: 9 lessons, 200 entries, 197 new lexemes, 6 flags
+
+=== Import Summary ===
+  lessons                        9
+  entries                        200
+  lexemes                        197
+  flags                          6
+
+Import complete
+
+
+Disc 1 is fully imported.
+---
+Disc 2 – Real Import
+
+After confirming Disc with id=2 exists in the admin (URLs /admin/numu/disc/1/change/ and /admin/numu/disc/2/change/):
+python manage.py import_discs --disc 2 --json-dir json
+
+
+Output:
+Importing Disc 2: json/numu_disc2.json
+  Disc 2: 9 lessons, 293 entries, 288 new lexemes, 15 flags
+
+=== Import Summary ===
+  lessons                        9
+  entries                        293
+  lexemes                        288
+  number_entries                 31
+  animal_categories              9
+  flags                          15
+
+Import complete
+
+
+Disc 2 is imported, including:
+• standard entries
+• numbers
+• animal categories
+• flags
+---
+Disc 3 – Real Import
+python manage.py import_discs --disc 3 --json-dir json
+
+
+Output:
+Importing Disc 3: json/numu_disc3.json
+  Disc 3: 11 lessons, 160 entries, 155 new lexemes, 20 flags
+
+=== Import Summary ===
+  lessons                        11
+  entries                        160
+  lexemes                        155
+  verb_paradigm_forms            16
+  color_forms                    8
+  prayer_lines                   8
+  flags                          20
+
+Import complete
+
+
+Disc 3 is imported, including:
+• verb paradigm forms
+• color forms
+• prayer lines
+• flags
+---
+Disc 4 – Real Import
+python manage.py import_discs --disc 4 --json-dir json
+
+
+Output:
+Importing Disc 4: json/numu_disc4.json
+  Disc 4: 12 lessons, 41 entries, 38 new lexemes, 19 flags
+
+=== Import Summary ===
+  lessons                        12
+  entries                        41
+  lexemes                        38
+  verb_paradigm_forms            38
+  verb_phrase_forms              4
+  color_application_entries      23
+  suffix_examples                101
+  sentence_entries               25
+  flags                          19
+
+Import complete
+
+
+Disc 4 is imported, including:
+• verb paradigms and phrase forms
+• color application entries
+• suffix examples
+• sentence entries
+• flags
+---
+5. Admin Customization for Lessons
+
+Initially, numu/admin.py auto-registered all models:
+from django.contrib import admin
+from django.apps import apps
+
+# Get the app config for the "numu" app
+app_config = apps.get_app_config("numu")
+
+# Automatically register all models in this app with the admin site
+for model in app_config.get_models():
+    try:
+        admin.site.register(model)
+    except admin.sites.AlreadyRegistered:
+        # In case something was registered manually elsewhere
+        pass
+
+
+This worked, but we had no:
+• Filter by disc for Lessons.
+• Control over which fields were shown/clickable.
+
+We added a custom admin for Lesson, keeping the auto-registration loop for everything else.
+
+Final structure (conceptually):
+from django.contrib import admin
+from django.apps import apps
+from .models import Lesson  # plus others like Entry later if desired
+
+# Custom admin for Lesson so we can control list + filters + clickable column
+@admin.register(Lesson)
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ("lesson_number", "title", "disc")
+    list_filter = ("disc",)
+    list_display_links = ("title",)  # Title is the clickable link
+
+# Auto-register all other models
+app_config = apps.get_app_config("numu")
+
+for model in app_config.get_models():
+    try:
+        admin.site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass
+
+
+Effect in the admin (Lessons page):
+• You can now see columns: lesson_number, title, disc.
+• Only title is clickable (as you requested).
+• There’s a filter on the right side: filter lessons by disc.
+---
+6. Disc Titles, IDs, and JSON Meta
+
+Current situation:
+• All 4 discs initially used the same title from JSON:
+  • "Numu Yadooape (Northern Paiute Language)".
+• In the admin, this made the disc filter look like the same label repeatedly.
+• The JSON meta for each disc looks like:"meta": {
+  "title": "Numu Yadooape (Northern Paiute Language)",
+  "dialect": "Pyramid Lake Paiute Tribe",
+  "writing_system": "Wycliffe",
+  "disc": 1,
+  "total_pages": 14
+}
+
+
+Key points we clarified:
+• The importer and DB relationships rely on id, not title:
+  • Disc.id = 1,2,3,4 is the backbone.
+  • Lessons have lesson.disc (FK to Disc).
+  • Entries (and other content) have entry.lesson (FK to Lesson), so entry.lesson.disc ties them back.
+• Changing Disc.title in the admin is safe:
+  • Does not affect imports.
+  • Does not break existing data.
+  • Does not hurt future React/React Native or AI usage, as long as those use id (or another stable field) rather than checking title literals.
+
+You can, for example, rename them in the admin to:
+• Disc 1 – Numu Yadooape (Northern Paiute Language)
+• Disc 2 – Numu Yadooape (Northern Paiute Language)
+• Disc 3 – Numu Yadooape (Northern Paiute Language)
+• Disc 4 – Numu Yadooape (Northern Paiute Language)
+
+or any other human-friendly naming.
+
+About JSON titles:
+• You do not need to change the JSON meta.title to match whatever you rename in the admin.
+• JSON is only used as the source for import; the DB is now the source of truth.
+• Only reason to change JSON titles would be for your own long-term cleanliness if you ever blow away the DB and want to re-import from scratch with consistent human-facing titles.
+---
+7. Where Things Stand Now
+
+You currently have:
+• A working Django backend for Numu with:
+  • Disc, Lesson, Entry, Lexeme, and associated models.
+• A working custom import command:python manage.py import_discs --disc N --json-dir json
+where N is 1–4.
+• All data from the four discs imported and linked correctly:
+  • Lessons per disc:
+    • Disc 1: 9 lessons
+    • Disc 2: 9 lessons
+    • Disc 3: 11 lessons
+    • Disc 4: 12 lessons
+  • Entries, lexemes, flags and all special content types (numbers, animals, verb paradigms, color forms, suffix examples, sentences, etc.) are in the DB.
+• Admin tuned for data exploration:
+  • Lessons:
+    • Filterable by disc.
+    • Show lesson_number, title, disc.
+    • Title is the clickable link.
+  • Discs:
+    • You can rename titles to something more descriptive without breaking imports or future features.
+---
+8. Future Directions (React / React Native / AI)
+
+When you’re ready to move on, the natural next steps are:
+1. API / Views:
+  • Build Django REST Framework (or simple Django views) endpoints:
+    • List discs.
+    • List lessons per disc.
+    • Lesson detail with entries.
+    • Search entries/lexemes by Paiute/English.
+2. React / React Native frontend:
+  • Use disc.id, lesson.id, entry.id as stable identifiers.
+  • Display human-friendly titles (whatever you set in the admin).
+  • Avoid hard-coding logic against titles like "Numu Yadooape (Northern Paiute Language)".
+3. AI integration:
+  • Use the imported DB as a clean, structured knowledge source:
+    • Lexicon (via Lexemes/Entries).
+    • Example sentences.
+    • Morphology (suffix examples, verb paradigms).
+  • Build APIs that expose the pieces you’d want an AI to query or reference.
+---
+
+---
+Detailed File Structure (Backend)
+
+This is the current structure of the backend project and what each key piece is responsible for.
+Project Root (Backend)
+
+Path:
+
+/Users/pdogg/Documents/numu/dev/backend
+
+This is the main Django backend project directory. From here you run commands like:
+python manage.py runserver
+python manage.py import_discs ...
+
+
+Key items in this folder:
+• manage.py
+  • Django’s command-line entrypoint.
+  • Anything like python manage.py <command> goes through this file.
+• .venv/
+  • Your Python virtual environment for this project.
+  • Contains installed packages like Django, etc.
+  • You activate it with source .venv/bin/activate.
+• config/
+  • Django project configuration (settings, URLs, WSGI/ASGI).
+  • Typical contents (naming may vary slightly, but functionally similar):
+    • config/settings.py
+      • Main Django settings: INSTALLED_APPS (includes numu), databases, middleware, etc.
+    • config/urls.py
+      • Top-level URL routing (which apps/views get which paths).
+    • config/asgi.py / config/wsgi.py
+      • Deployment entrypoints for ASGI/WSGI servers.
+• numu/
+  • The main application for Numu language data and logic.
+  • This is where you define models, admin configuration, and custom management commands.
+• json/
+  • Folder containing the raw disc JSON files:
+    • numu_disc1.json
+    • numu_disc2.json
+    • numu_disc3.json
+    • numu_disc4.json
+  • These are input sources for the importer, not “live” data.
+  • The importer reads these and writes the information into the database.
+• Other files like:
+  • requirements.txt
+    • Python dependencies for the project.
+  • numu_schema.sql, numu_setup_guide.md, notes/, etc.
+    • Project-specific docs or helper files you had from earlier setup work.
+---
+The numu App
+
+Path:
+
+/Users/pdogg/Documents/numu/dev/backend/numu
+
+This is a Django app that encapsulates the Numu domain logic and data model.
+
+Key files:
+• __init__.py
+  • Standard Python file to mark this directory as a package.
+• apps.py
+  • Defines the Django app configuration class (e.g., NumuConfig).
+  • Django uses this to register the app and its settings.
+• models.py
+  • Core database models for the project: this is where Disc, Lesson, Entry, Lexeme, and other domain models live.
+  • Important relationships:
+    • Disc
+      • Represents a physical disc (1–4).
+      • Other models attach to a disc through lessons.
+    • Lesson
+      • Has a foreign key to Disc (e.g., disc = models.ForeignKey(Disc, ...)).
+      • Represents a lesson on a disc, e.g., “Introductions and Farewells”, with lesson_number, title, etc.
+    • Entry
+      • Has a foreign key to Lesson.
+      • Represents a vocab or content item: Paiute text, English gloss, notes, etc.
+    • Lexeme
+      • Represents the core lexical item; often many entries point to a lexeme.
+    • Other specialized models for:
+      • Numbers
+      • Animal categories
+      • Verb paradigms
+      • Color forms
+      • Prayer lines
+      • Suffix examples
+      • Sentence entries
+      • Review flags, etc.
+  • The importer writes into these tables.
+• admin.py
+  • Controls how your models appear in the Django admin.
+  • Current behavior:
+    • Auto-registers all models in the numu app:app_config = apps.get_app_config("numu")
+for model in app_config.get_models():
+    try:
+        admin.site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass
+
+    • Plus custom admin classes to make some models nicer to work with:
+      • LessonAdmin
+        • list_display shows lesson_number, title, disc.
+        • list_filter = ("disc",) allows filtering lessons by disc.
+        • list_display_links = ("title",) makes the title clickable.
+      • (Optionally) EntryAdmin or others if/when you add them, to:
+        • Expose disc via entry.lesson.disc
+        • Add filters, search, etc.
+• views.py, tests.py
+  • Currently not the main focus.
+  • views.py will eventually hold your HTTP/API endpoints or page logic.
+  • tests.py is where you’d add unit tests.
+• migrations/
+  • Django migration files that represent schema changes over time.
+  • These reflect the history of your models and are what python manage.py migrate uses to create/update tables.
+---
+Management Commands
+
+Path:
+
+/Users/pdogg/Documents/numu/dev/backend/numu/management/commands
+
+This is the Django “management commands” location, where custom manage.py commands live.
+
+Structure:
+• numu/management/
+  • __init__.py
+    • Marks this as a Python package.
+• numu/management/commands/
+  • __init__.py
+    • Marks the commands directory as a package so Django can import from it.
+  • import_discs.py
+    • Custom command you run as:python manage.py import_discs --disc 1 --json-dir json
+
+    • Responsibilities:
+      • Parses CLI arguments:
+        • --disc (1–4 or all)
+        • --json-dir (directory containing the JSON files; defaults to self.JSON_DIR)
+        • --dry-run (counts and validates without writing to DB)
+      • Loads the appropriate JSON file: numu_disc{disc_num}.json.
+      • Validates the structure of the JSON (meta, lessons, content sections).
+      • For each disc:
+        • Looks up the Disc instance by ID (e.g., Disc.objects.get(id=disc_num)).
+        • Creates and/or updates:
+          • Lesson rows
+          • Entry rows
+          • Lexeme rows
+          • Specialized models (numbers, animals, verb paradigms, colors, prayers, suffix examples, sentence entries, etc.).
+          • ReviewFlag rows where appropriate.
+      • When --dry-run is used:
+        • Does all parsing, validation, and counting.
+        • Prints a summary, but does not write anything to the DB.
+      • When run without --dry-run:
+        • Commits all changes to the database and prints detailed summaries per disc.
+---
+JSON Data Directory
+
+Path:
+
+/Users/pdogg/Documents/numu/dev/backend/json
+
+These are your source data files for the importer.
+• numu_disc1.json
+• numu_disc2.json
+• numu_disc3.json
+• numu_disc4.json
+
+Each file has a structure roughly like:
+{
+  "meta": {
+    "title": "Numu Yadooape (Northern Paiute Language)",
+    "dialect": "Pyramid Lake Paiute Tribe",
+    "writing_system": "Wycliffe",
+    "disc": 1,
+    "total_pages": 14
+  },
+  "lessons": [
+    {
+      "lesson_number": 1,
+      "title": "...",
+      "type": "vocab" | "numbers" | "animals" | "verbs" | ...,
+      "entries": [ ... ],
+      "other_sections": { ... }
+    },
+    ...
+  ]
+}
+
+
+Important points:
+• meta.disc is used to ensure the importer attaches lessons to the correct Disc by id (1–4).
+• meta.title was originally used by you when manually creating the Disc in admin (but you’re now free to rename the admin title if you want).
+• You don’t need to modify the JSON titles just because you renamed discs in the admin; the DB is now the source of truth.
+---
+PostgreSQL Setup & Configuration
+
+This project uses PostgreSQL as the primary database for the Django backend.
+1. Local Postgres database
+
+On the local dev machine, you should have a PostgreSQL server running and a database created for this project. A typical setup looks like:
+• Postgres running on: localhost
+• Port: 5432 (default)
+• Database name: numu_db
+• Username: pmatson
+• Password: your_password_here
+
+Example SQL to create the DB and user (run in psql as a superuser like postgres):
+CREATE DATABASE numu_db;
+CREATE USER numu WITH PASSWORD 'your_password_here';
+GRANT ALL PRIVILEGES ON DATABASE numu TO numu;
+
+
+Adjust names/passwords as needed.
+2. Django DATABASES setting (config/settings.py)
+
+In config/settings.py, the DATABASES setting is configured to use PostgreSQL. It should look roughly like this (edit to match your real credentials):
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME', 'numu_db'),
+        'USER': os.getenv('DATABASE_USER', 'pmatson'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', ''),
+        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
+    }
+}
+
+
+If your DB name/user/password differ, update them here.
+3. Applying migrations
+
+Once PostgreSQL is running and the DATABASES setting is correct, the schema is created by running migrations from the backend project root:
+cd /Users/pdogg/Documents/numu/dev/backend
+source .venv/bin/activate
+python manage.py migrate
+
+
+This:
+• Creates the core Django tables (auth, admin, sessions, etc.).
+• Creates all tables for the numu app (Disc, Lesson, Entry, Lexeme, and all related models).
+4. Creating a superuser
+
+To use the Django admin with this Postgres-backed DB, a superuser account is created via:
+python manage.py createsuperuser
+
+
+You choose:
+• username
+• email (optional)
+• password
+
+This user logs into /admin/ and has full access to view/edit all numu models.
+5. Verifying the Postgres connection
+
+To confirm Django is talking to Postgres correctly:
+1. Run the dev server:python manage.py runserver
+
+2. Visit:
+  • http://127.0.0.1:8000/admin/
+3. Log in with the superuser you created.
+4. You should see:
+  • “NUMU” section with models like Discs, Lessons, Entries, Lexemes, etc.
+  • The imported data (after running the import commands) available there.
+
+If there’s a connection error (e.g., “could not connect to server: Connection refused” or “FATAL: password authentication failed”), it usually means:
+• Postgres isn’t running, or
+• DB name/user/password/host in DATABASES don’t match the actual Postgres config.
+---
+
+
+If you want, next step could look like:
+• Design the API shape (endpoints, payloads) for a future React app, or
+• Improve the admin more (e.g., filters & displays for Entries, Lexemes, Flags), or
+• Document the model relationships so they’re crystal clear for later you / other devs.

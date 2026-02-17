@@ -1,0 +1,19 @@
+# Numu Yadooape — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Core
+django>=4.2,<5.0
+djangorestframework>=3.14
+
+# Database
+psycopg2-binary>=2.9
+pgvector>=0.2.4
+
+# Auth
+djangorestframework-simplejwt>=5.3
+
+# Environment
+python-dotenv>=1.0
+
+# Utilities
+django-extensions>=3.2    # shell_plus, show_urls, etc — useful for dev

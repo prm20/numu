@@ -1,0 +1,548 @@
+# Numu Backend – Current State & Setup Log  
+*(as of Mon 16 Feb 2026, ~22:30 PT)*
+
+This file documents:
+
+- Where your Django/Postgres setup currently stands
+- What we changed/fixed
+- Every important command you ran, what it did, and which error it was addressing
+- The current project structure (approximate, based on what we’ve seen)
+
+You can drop this into the repo as something like `docs/backend-setup-notes.md` or `notes/2026-02-16-setup.md`.
+
+---
+
+## 1. High‑level status
+
+### Backend / Django
+
+- Django project is in `backend/`.
+- App `numu` is installed and its migrations have been applied.
+- `settings.DATABASES` reads DB configuration from your `.env` file.
+- Django admin is running and accessible at:  
+  `http://127.0.0.1:8000/admin/`
+- The following `numu` models are registered and visible in admin:
+  - `Disc`
+  - `Lesson`
+  - `Lexeme`
+  - `AudioFile`
+
+### PostgreSQL
+
+- Database name: `numu_db`
+- DB user: `pmatson`
+- DB password: `HGsAYusmidGWbFjkFAD6` (stored in `.env`)
+- `numu_db` has the `vector` extension installed:
+  - Used by `Lexeme.embedding = VectorField(dimensions=1536, ...)`
+- Django migrations are fully applied:
+
+  ```bash
+  python manage.py migrate
+
+
+  Output (final run):
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, numu, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying numu.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+---
+2. Commands & what they did (with related errors)
+2.1 Dropping & recreating the database
+Command
+dropdb numu_db
+
+Initial error
+dropdb: error: database removal failed: ERROR:  database "numu_db" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+
+• Meaning: There was an active connection to numu_db (e.g., an open psql session, or a Django dev server still connected).
+• Effect: dropdb failed the first time.
+
+You then ran:
+dropdb numu_db
+
+
+again, successfully (after the lingering session was closed).
+
+Then:
+createdb numu_db
+
+• What it did: Created a fresh, empty PostgreSQL database named numu_db, owned by your default Postgres role (likely your macOS user, pdogg).
+---
+2.2 First migration attempt – missing privileges
+Command
+python manage.py migrate
+
+Error
+psycopg2.errors.InsufficientPrivilege: permission denied for schema public
+LINE 1: CREATE TABLE "django_migrations" ...
+
+
+Wrapped in:
+django.db.migrations.exceptions.MigrationSchemaMissing:
+Unable to create the django_migrations table (permission denied for schema public)
+
+• Cause:
+  • Django was connecting as Postgres user specified in settings.DATABASES.
+  • At that point, DATABASE_USER in settings (without env overrides) was pmatson with empty password.
+  • pmatson existed but did not own the public schema or have permission to create tables in numu_db.
+• Fix:
+  • We decided to explicitly configure Django to connect as pmatson with the correct password via .env.
+  • You also made sure pmatson has the necessary rights (implicitly handled once the DB and user setup was correct; no explicit GRANT commands were shown in the transcript).
+---
+2.3 Inspecting environment variables
+
+You checked whether any DATABASE_... env vars were already set:
+env | grep DATABASE_
+
+• Output: nothing — no DATABASE_... variables were present in the shell.
+• Meaning: settings.DATABASES was falling back to the default hardcoded values:
+  • NAME='numu_db'
+  • USER='pmatson'
+  • PASSWORD='' (empty string)
+
+We also tried to introspect Django settings directly with Python:
+python - << 'EOF'
+from django.conf import settings
+print("DB NAME:", settings.DATABASES['default']['NAME'])
+print("DB USER:", settings.DATABASES['default']['USER'])
+print("DB PASSWORD:", repr(settings.DATABASES['default']['PASSWORD']))
+EOF
+
+Error
+django.core.exceptions.ImproperlyConfigured: Requested setting DATABASES, but settings are not configured.
+You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.
+
+• Cause: Running plain python instead of going through Django’s manage.py (which sets DJANGO_SETTINGS_MODULE).
+• Impact: This was just a diagnostic step; we dropped it once we knew .env had to be used.
+---
+2.4 Creating and populating .env
+
+You wrote the database settings into .env:
+cat >> .env << 'EOF'
+DATABASE_NAME=numu_db
+DATABASE_USER=pmatson
+DATABASE_PASSWORD=HGsAYusmidGWbFjkFAD6
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+EOF
+
+
+Then checked the file:
+cat .env
+
+
+Contents:
+SECRET_KEY=dev-secret-key-change-this-later
+DEBUG=True
+DATABASE_NAME=numu_db
+DATABASE_USER=pmatson
+DATABASE_PASSWORD=HGsAYusmidGWbFjkFAD6
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+
+• What this did:
+  • Ensured Django’s DATABASES config (which uses os.getenv(...)) picks up numu_db / pmatson / password / host / port correctly.
+  • Resolved the earlier mismatch between actual DB user/password and Django’s expectations.
+---
+2.5 Second migration attempt – pgvector missing
+
+With .env configured, you ran:
+python manage.py migrate
+
+
+New error:
+psycopg2.errors.UndefinedObject: type "vector" does not exist
+LINE 1: ..."needs_lexeme_review" boolean NOT NULL, "embedding" vector(153...
+                                                             ^
+...
+django.db.utils.ProgrammingError: type "vector" does not exist
+
+• Cause:
+  • The Lexeme model uses VectorField(dimensions=1536, ...) from pgvector.
+  • That requires the Postgres extension vector to be installed in the DB.
+  • Because numu_db was freshly recreated, the extension was no longer present.
+---
+2.6 Installing the vector extension in Postgres
+
+In a separate terminal (outside the virtualenv is fine), you connected to Postgres:
+psql numu_db
+
+
+Output:
+psql (16.12 (Homebrew))
+Type "help" for help.
+
+numu_db=#
+
+
+Then you created the extension:
+CREATE EXTENSION IF NOT EXISTS vector;
+
+
+Output:
+CREATE EXTENSION
+
+
+You verified installed extensions:
+\dx
+
+
+Output:
+                             List of installed extensions
+  Name   | Version |   Schema   |                     Description
+---------+---------+------------+------------------------------------------------------
+ plpgsql | 1.0     | pg_catalog | PL/pgSQL procedural language
+ vector  | 0.8.1   | public     | vector data type and ivfflat and hnsw access methods
+(2 rows)
+
+
+Then you quit psql:
+\q
+
+• Effect:
+  • vector type is now available in numu_db, so VectorField migrations can run.
+---
+2.7 Successful migrations
+
+Back in the virtualenv terminal:
+python manage.py migrate
+
+
+Output (key lines):
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, numu, sessions
+Running migrations:
+  Applying numu.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+• Effect:
+  • All default Django apps + numu schema created successfully in numu_db.
+  • Your database is now aligned with your models.
+---
+2.8 Running the dev server
+
+You started the dev server (or may have had it already running):
+python manage.py runserver
+
+• What it does:
+  • Starts Django’s development server on http://127.0.0.1:8000/.
+  • Uses auto‑reload when Python files change (via StatReloader).
+
+You accessed:
+• http://127.0.0.1:8000/admin/
+
+Initially, you only saw:
+• Groups
+• Users
+
+(no NUMU models yet).
+---
+2.9 Registering models in the Django admin
+
+All edits were in:
+backend/numu/admin.py
+
+2.9.1 Initial state
+from django.contrib import admin
+
+# Register your models here.
+
+2.9.2 Registering Disc
+
+We changed admin.py to:
+from django.contrib import admin
+from .models import Disc
+
+# Register your models here.
+admin.site.register(Disc)
+
+• Effect:
+  • Discs appeared as a NUMU section in the admin UI.
+  • Confirmed that the admin wiring was correct.
+2.9.3 Inspecting models
+
+We looked at backend/numu/models.py and confirmed (among others):
+class Disc(models.Model):
+    ...
+
+class Lesson(models.Model):
+    ...
+
+class AudioFile(models.Model):
+    ...
+
+class Lexeme(models.Model):
+    ...
+
+
+This confirmed the exact class names we needed to reference from admin.py.
+2.9.4 Registering Lesson and Lexeme
+
+We updated admin.py to:
+from django.contrib import admin
+from .models import Disc, Lesson, Lexeme
+
+# Register your models here.
+admin.site.register(Disc)
+admin.site.register(Lesson)
+admin.site.register(Lexeme)
+
+• Potential error we briefly hit:
+  • When we previously tried to register Lesson without importing it, Django raised:NameError: name 'Lesson' is not defined
+
+  • That was resolved by ensuring Lesson is included in the .models import.
+
+Once imports were correct, Django reloaded cleanly and the admin showed:
+• Discs
+• Lessons
+• Lexemes
+
+under NUMU.
+2.9.5 Registering AudioFile
+
+We then extended admin.py one more time:
+from django.contrib import admin
+from .models import Disc, Lesson, Lexeme, AudioFile
+
+# Register your models here.
+admin.site.register(Disc)
+admin.site.register(Lesson)
+admin.site.register(Lexeme)
+admin.site.register(AudioFile)
+
+• Error we briefly hit here:
+  • When AudioFile was registered before being imported, Django raised:NameError: name 'AudioFile' is not defined
+
+  • Fix: include AudioFile in the .models import line (as above).
+
+After that fix:
+• Admin reloaded successfully.
+• NUMU section now shows:
+  • Discs
+  • Lessons
+  • Lexemes
+  • Audio files
+---
+3. Key configuration files (current state)
+3.1 .env (current contents as used by Django)
+SECRET_KEY=dev-secret-key-change-this-later
+DEBUG=True
+
+DATABASE_NAME=numu_db
+DATABASE_USER=pmatson
+DATABASE_PASSWORD=HGsAYusmidGWbFjkFAD6
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+
+• Used by: config/settings.py via os.getenv(...) for database configuration (and likely for SECRET_KEY / DEBUG).
+---
+3.2 config/settings.py – DATABASES section (logical structure)
+
+You shared this earlier:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME', 'numu_db'),
+        'USER': os.getenv('DATABASE_USER', 'pmatson'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', ''),
+        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
+    }
+}
+
+
+With .env loaded, Django uses:
+• NAME = "numu_db"
+• USER = "pmatson"
+• PASSWORD = "HGsAYusmidGWbFjkFAD6"
+• HOST = "localhost"
+• PORT = "5432"
+---
+3.3 numu/admin.py (current contents)
+from django.contrib import admin
+from .models import Disc, Lesson, Lexeme, AudioFile
+
+# Register your models here.
+admin.site.register(Disc)
+admin.site.register(Lesson)
+admin.site.register(Lexeme)
+admin.site.register(AudioFile)
+
+---
+3.4 numu/models.py – relevant parts
+
+Key models we touched:
+# =============================================================================
+# CORE STRUCTURE: discs -> lessons -> audio_files
+# =============================================================================
+
+class Disc(models.Model):
+    """One physical lesson disc (1-4). id is the disc number, not auto-incremented."""
+    id             = models.SmallIntegerField(primary_key=True)
+    title          = models.TextField()
+    dialect        = models.TextField(default='Pyramid Lake Paiute Tribe')
+    writing_system = models.TextField(default='Wycliffe')
+    total_pages    = models.SmallIntegerField()
+    notes          = models.TextField(blank=True, null=True)
+    created_at     = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'discs'
+
+    def __str__(self):
+        return self.title
+
+
+class Lesson(models.Model):
+    """
+    One lesson track on a disc.
+    lesson_number is sequential across ALL discs (4-44, never restarting per disc).
+    """
+    disc          = models.ForeignKey(Disc, on_delete=models.PROTECT, related_name='lessons')
+    lesson_number = models.SmallIntegerField(unique=True)
+    title         = models.TextField()
+    category      = models.TextField()
+    page          = models.TextField()
+    section_title = models.TextField(blank=True, null=True)
+    content_tier  = models.CharField(
+        max_length=20, choices=ContentTier.choices, default=ContentTier.TRIBAL_MEMBER
+    )
+    notes         = models.TextField(blank=True, null=True)
+    created_at    = models.DateTimeField(auto_now_add=True)
+    updated_at    = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'lessons'
+        ordering = ['lesson_number']
+
+    def __str__(self):
+        return f'L{self.lesson_number}: {self.title}'
+
+
+class AudioFile(models.Model):
+    """
+    Audio file associated with a lesson (currently 1:1 with lessons).
+    entry_id nullable -- reserved for future per-entry audio clips.
+    Constraint: at least one of lesson or entry must be non-null.
+    """
+    filename         = models.TextField()
+    s3_key           = models.TextField(blank=True, null=True)
+    duration_seconds = models.SmallIntegerField(null=True, blank=True)
+    lesson           = models.ForeignKey(
+        Lesson, on_delete=models.PROTECT, null=True, blank=True, related_name='audio_files'
+    )
+    entry            = models.ForeignKey(
+        'Entry', on_delete=models.SET_NULL, null=True, blank=True, related_name='audio_files'
+    )
+    created_at       = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'audio_files'
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(lesson__isnull=False) | models.Q(entry__isnull=False),
+                name='audio_has_parent'
+            )
+        ]
+
+    def __str__(self):
+        return self.filename
+
+
+# =============================================================================
+# LEXEME LAYER
+# =============================================================================
+
+class Lexeme(models.Model):
+    """
+    Canonical Paiute word form. Multiple entries can share one lexeme.
+    """
+    paiute              = models.TextField()
+    paiute_normalized   = models.TextField(unique=True)
+    is_multi_sense      = models.BooleanField(default=False)
+    needs_lexeme_review = models.BooleanField(default=False)
+    embedding           = VectorField(dimensions=1536, null=True, blank=True)
+    created_at          = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'lexemes'
+
+    def save(self, *args, **kwargs):
+        if self.paiute:
+            self.paiute_normalized = self.paiute.lower()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.paiute
+
+---
+4. Approximate project structure
+
+Based on the conversation, the backend directory likely looks roughly like this (ignoring many files that aren’t relevant to this log):
+backend/
+├── manage.py
+├── .venv/                # Python virtual environment (used in the terminal: (.venv) prompt)
+├── .env                  # Environment variables (DB config, SECRET_KEY, DEBUG)
+├── config/
+│   ├── __init__.py
+│   ├── settings.py       # Uses os.getenv for DATABASE_* and other config
+│   ├── urls.py
+│   └── wsgi.py / asgi.py
+├── numu/
+│   ├── __init__.py
+│   ├── admin.py          # Currently registers Disc, Lesson, Lexeme, AudioFile
+│   ├── apps.py
+│   ├── models.py         # Disc, Lesson, AudioFile, Lexeme, plus other domain models
+│   ├── migrations/
+│   │   ├── __init__.py
+│   │   └── 0001_initial.py
+│   ├── views.py          # (not discussed yet, but likely present)
+│   ├── urls.py           # (may exist; routes for the numu app)
+│   └── ...               # other modules (serializers, services, etc., if present)
+└── ...
+
+
+At the repo root, you also have:
+Numu/
+├── dev/
+│   ├── backend/        # (this is where we’ve been working)
+│   └── frontend/       # (if present; not covered yet)
+└── ...
+
+---
+5. Summary of “where we are”
+• Database:
+  • numu_db exists and is reachable.
+  • Connected via user pmatson with correct password from .env.
+  • Has vector extension installed.
+  • All Django & numu migrations are applied.
+• Django:
+  • Settings configured to use env vars for DB.
+  • Dev server runs without errors.
+  • Admin works and currently exposes 4 domain models:
+    • Disc
+    • Lesson
+    • Lexeme
+    • AudioFile
+
+You can paste this entire file into a new chat later so we can continue exactly from this state.

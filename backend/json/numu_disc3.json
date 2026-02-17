@@ -1,0 +1,796 @@
+{
+  "meta": {
+    "title": "Numu Yadooape (Northern Paiute Language)",
+    "dialect": "Pyramid Lake Paiute Tribe",
+    "writing_system": "Wycliffe",
+    "disc": 3,
+    "total_pages": 13,
+    "notes": "Disc 3 introduces grammatical depth not present in prior discs: color morphology (adjective/predicate/noun forms), verb conjugation paradigms for Tuka (eat), and full sentence structures throughout. Lesson 11 contains the Food Prayer — a complete liturgical text with line-by-line translation."
+  },
+
+  "writing_system": {
+    "vowels": ["a", "e", "i", "o", "u"],
+    "letters_not_used": ["f", "j", "l", "q", "r", "v", "x"],
+    "vowel_sounds": [
+      { "letter": "a", "sound_description": "like the 'a' in father", "examples": [{ "paiute": "Ada", "english": "crow" }, { "paiute": "Haga", "english": "who" }] },
+      { "letter": "e", "sound_description": "like the 'e' in easy", "examples": [{ "paiute": "Ehobe", "english": "dove" }, { "paiute": "Hebe", "english": "drink" }] },
+      { "letter": "i", "sound_description": "like the 'i' in high", "examples": [{ "paiute": "Kiba", "english": "mountain" }, { "paiute": "Hitse", "english": "sweetheart" }] },
+      { "letter": "o", "sound_description": "like the 'o' in no", "examples": [{ "paiute": "Nobe", "english": "house" }, { "paiute": "Soba", "english": "cheeks" }] },
+      { "letter": "u", "sound_description": "like the 'u' in put", "examples": [{ "paiute": "Numu", "english": "people" }, { "paiute": "Padu", "english": "daughter" }, { "paiute": "nu", "english": "I" }] }
+    ],
+    "elongated_sounds": {
+      "description": "Doubled letters indicate sounds held longer: aa, ee, mm, nn",
+      "examples": [
+        { "paiute": "Aa", "english": "antlers" },
+        { "paiute": "Teepu", "english": "earth, land" },
+        { "paiute": "Tommo", "english": "winter" },
+        { "paiute": "Tsahanne", "english": "undo" }
+      ]
+    },
+    "vowel_combinations": [
+      { "combo": "oo", "sound_description": "like the 'oo' in boot", "examples": [{ "paiute": "Pookoo", "english": "horse" }, { "paiute": "Kootsoo", "english": "cow" }] },
+      { "combo": "ae", "sound_description": "like the 'a' in say", "examples": [{ "paiute": "Sae", "english": "thigh" }, { "paiute": "Tumadaena", "english": "right" }] },
+      { "combo": "ow", "sound_description": "like the 'ow' in cow", "examples": [{ "paiute": "Kowpa", "english": "leg" }, { "paiute": "Powma", "english": "rain" }] },
+      { "combo": "oe", "sound_description": "like the 'oy' ending in toy", "examples": [{ "paiute": "Toe", "english": "cattail" }, { "paiute": "Nakoe", "english": "fight" }] },
+      { "combo": "ea", "sound_description": "special sound unlike in English", "examples": [{ "paiute": "Pea", "english": "mother" }, { "paiute": "Mea", "english": "go" }] },
+      { "combo": "dy", "sound_description": "the 'ch' sound in English", "examples": [{ "paiute": "Tuhudya", "english": "deer" }, { "paiute": "Kodyu", "english": "return" }] }
+    ],
+    "glottal_stop": {
+      "symbol": "'",
+      "description": "Apostrophe marks a split-second interruption of breath and sound. Voiceless glottal.",
+      "examples": [
+        { "paiute": "Pabe'e", "english": "older brother" },
+        { "paiute": "Mogo'ne", "english": "lady" },
+        { "paiute": "Saa'a", "english": "later" },
+        { "paiute": "Hi'e", "english": "uncle" }
+      ]
+    },
+    "consonants": [
+      { "letter": "b", "sound_description": "identical to English 'b' as in 'Bill'" },
+      { "letter": "c", "sound_description": "s sound, only used in few words", "examples": [{ "paiute": "Cee", "english": "intestines" }, { "paiute": "Nocee", "english": "dream" }] },
+      { "letter": "d", "sound_description": "identical to English 'd' as in 'dog'" },
+      { "letter": "g", "sound_description": "identical to English 'g' as in 'great'" },
+      { "letter": "h", "sound_description": "identical to English 'h' as in 'hill'" },
+      { "letter": "k", "sound_description": "like the English 'k' as in 'kid'" },
+      { "letter": "m", "sound_description": "identical to English 'm' as in 'mother'" },
+      { "letter": "n", "sound_description": "identical to English 'n' as in 'need'" },
+      { "letter": "p", "sound_description": "identical to English 'p' as in 'proud'" },
+      { "letter": "s", "sound_description": "either like English 's' (as in silly) or like English 'sh' (as in shop). If next to 'e' or 'i', sounds like 'sh'", "examples": [{ "paiute": "Pesa", "english": "good" }, { "paiute": "Esa", "english": "wolf" }] },
+      { "letter": "t", "sound_description": "identical to English 't' as in 'tall'" },
+      { "letter": "w", "sound_description": "like 'w' in 'Will' but softer, between 'm' and 'w'" },
+      { "letter": "y", "sound_description": "identical to English 'y' as in 'yellow'" },
+      { "letter": "z", "sound_description": "identical to English 'z' as in 'zoo'" }
+    ],
+    "blends": [
+      { "blend": "tsa", "examples": [{ "paiute": "Tsagwudu", "english": "porcupine" }, { "paiute": "Tsapoone", "english": "show" }, { "paiute": "Atsabana", "english": "flicker" }] },
+      { "blend": "tse", "examples": [{ "paiute": "Tsemoo", "english": "hip" }, { "paiute": "Tsekwaha", "english": "point" }, { "paiute": "Pabetse", "english": "weasel" }] },
+      { "blend": "tso", "examples": [{ "paiute": "Tsopege", "english": "head" }, { "paiute": "Hetsotso'o", "english": "dragonfly" }, { "paiute": "Tawetsogo", "english": "ankle" }] },
+      { "blend": "tsu", "examples": [{ "paiute": "Utzu'tzu", "english": "cold" }, { "paiute": "Tatsungu", "english": "count" }, { "paiute": "Yutsunga", "english": "alive" }] },
+      { "blend": "tza", "examples": [{ "paiute": "Etza'a", "english": "coyote" }, { "paiute": "Tatza", "english": "summer" }, { "paiute": "Pamagatza'a", "english": "horned toad" }] },
+      { "blend": "tze", "examples": [{ "paiute": "Etze'e", "english": "yesterday" }, { "paiute": "Tzepesa", "english": "squirrel" }, { "paiute": "Hootze", "english": "sagehen" }] },
+      { "blend": "kwa", "examples": [{ "paiute": "Hukwapu", "english": "wind" }, { "paiute": "Nodukwa", "english": "wife" }, { "paiute": "Togokwa", "english": "snake" }] },
+      { "blend": "kwe", "examples": [{ "paiute": "Kwena'a", "english": "eagle" }, { "paiute": "Pakwe", "english": "fish" }, { "paiute": "Kweba", "english": "hit or fall" }] },
+      { "blend": "kwo", "examples": [{ "paiute": "Kwo", "english": "hair" }, { "paiute": "Tsakwona", "english": "open" }, { "paiute": "Wokwosakwe'yoo", "english": "eight" }] },
+      { "blend": "kwu", "examples": [{ "paiute": "Yukwu", "english": "swallow" }, { "paiute": "Tunekwuhu", "english": "sing" }, { "paiute": "Tsakwuhu", "english": "carry" }] },
+      { "blend": "nga", "examples": [{ "paiute": "Pongatze", "english": "mouse" }, { "paiute": "Wanga'a", "english": "younger brother" }, { "paiute": "Yoonga", "english": "carry" }] },
+      { "blend": "nge", "examples": [{ "paiute": "Pongeta", "english": "skunk" }, { "paiute": "Wange'e", "english": "fox" }, { "paiute": "Tsawo'nge", "english": "scratch" }] },
+      { "blend": "ngo", "examples": [{ "paiute": "Songo'o", "english": "lungs" }, { "paiute": "Yongona", "english": "evening" }, { "paiute": "Pongosa", "english": "arrow" }] },
+      { "blend": "ngu", "examples": [{ "paiute": "Wopongu", "english": "mosquito" }, { "paiute": "Tubongu", "english": "down" }, { "paiute": "Tatsungu", "english": "count" }] }
+    ]
+  },
+
+  "color_morphology_note": "Colors in Numu follow a consistent morphological pattern. The base/adjective form ends in -kweta (e.g., Atsakweta = red). Adding -'a creates the predicate form meaning 'is [color]' (e.g., Atsakweta'a = is red). Adding -du creates the noun form meaning 'the [color] one' (e.g., Atsakwetadu = red one). The color root prefix can be compounded directly onto nouns (e.g., Atsa + Kwasu = Atsakwasu = red shirt). There are four distinct words for brown in the source material, possibly representing different shades or regional variants.",
+
+  "lessons": [
+    {
+      "lesson_number": 22,
+      "title": "Colors",
+      "audio_file": "1 Colors.m4a",
+      "page": "3.1",
+      "category": "colors",
+      "color_entries": [
+        {
+          "english": "red",
+          "forms": {
+            "adjective": "Atsakweta",
+            "predicate": "Atsakweta'a",
+            "predicate_gloss": "is red",
+            "noun": "Atsakwetadu",
+            "noun_gloss": "red one"
+          },
+          "compound_example": {
+            "components": "Atsa + Kwasu",
+            "result": "Atsakwasu",
+            "english": "red shirt"
+          },
+          "example_sentences": [
+            { "paiute": "Soo Nana Kwasu Unu Atsakweta'a", "english": "The man's shirt is real red" },
+            { "paiute": "Masoo Atsakwetadu Pesa Tabua'a", "english": "That red one looks pretty" }
+          ]
+        },
+        {
+          "english": "white",
+          "forms": {
+            "adjective": "Tohakweta",
+            "predicate": "Tohakweta'a",
+            "predicate_gloss": "is white",
+            "noun": "Tohakwetadu",
+            "noun_gloss": "white one"
+          },
+          "extra_forms": [
+            { "paiute": "Tohataepu", "english": "state of being white / faded" }
+          ],
+          "compound_example": {
+            "components": "Toha + Koomea",
+            "result": "Tohakoomea",
+            "english": "white cloud"
+          },
+          "example_sentences": [
+            { "paiute": "Soo Koomea Unu Tohakweta'a", "english": "The cloud is real white" },
+            { "paiute": "Nu Ka Tohakwetadu Petzape", "english": "I like the white one" }
+          ]
+        },
+        {
+          "english": "blue",
+          "forms": {
+            "adjective": "Poohekweta",
+            "predicate": "Poohekweta'a",
+            "predicate_gloss": "is blue",
+            "noun": "Poohekwetadu",
+            "noun_gloss": "blue one"
+          },
+          "compound_example": {
+            "components": "Poohe + Koosa",
+            "result": "Poohekoosa",
+            "english": "blue pants / denim"
+          },
+          "example_sentences": [
+            { "paiute": "Esoo Koosa Unu Poohekweta'a", "english": "This pants is real blue" },
+            { "paiute": "Maka Poohekwetadu E Gea", "english": "Give me that blue one" }
+          ]
+        },
+        {
+          "english": "yellow",
+          "forms": {
+            "adjective": "Ohakweta",
+            "predicate": "Ohakweta'a",
+            "predicate_gloss": "is yellow",
+            "noun": "Ohakwetadu",
+            "noun_gloss": "yellow one"
+          },
+          "compound_example": {
+            "components": "Oha + Puhu",
+            "result": "Ohapuhu",
+            "english": "yellow duck"
+          },
+          "example_sentences": [
+            { "paiute": "Masoo Puhu Unu Ohakweta'a", "english": "That duck is real yellow" },
+            { "paiute": "Maka Ohakwetadu Poone", "english": "Look at that yellow one" }
+          ]
+        },
+        {
+          "english": "green",
+          "forms": {
+            "adjective": "Pooekweta",
+            "predicate": "Pooekweta'a",
+            "predicate_gloss": "is green",
+            "noun": "Pooekwetadu",
+            "noun_gloss": "green one"
+          },
+          "compound_example": {
+            "components": "Pooe + Nobe",
+            "result": "Pooenobe",
+            "english": "greenhouse"
+          },
+          "example_sentences": [
+            { "paiute": "Esoo Wahabu Unu Pooekweta'a", "english": "This grass is real green" },
+            { "paiute": "Oosoo Ka Pooekwetadu Tumu'hoo", "english": "He or she bought the green one" }
+          ]
+        },
+        {
+          "english": "gray",
+          "forms": {
+            "adjective": "Esekweta",
+            "predicate": "Esekweta'a",
+            "predicate_gloss": "is gray",
+            "noun": "Esekwetadu",
+            "noun_gloss": "gray one"
+          },
+          "compound_example": {
+            "components": "Ese + Pookoo",
+            "result": "Esepookoo",
+            "english": "gray horse"
+          },
+          "example_sentences": [
+            { "paiute": "Waha'yoo Pookoo Esekweta'a", "english": "Two horses are gray" },
+            { "paiute": "Oosoo Esekwetadu Pesa Tabua'a", "english": "That gray one looks pretty" }
+          ]
+        },
+        {
+          "english": "black",
+          "forms": {
+            "adjective": "Toohookweta",
+            "predicate": "Toohookweta'a",
+            "predicate_gloss": "is black",
+            "noun": "Toohookwetadu",
+            "noun_gloss": "black one",
+            "noun_notes": "Source prints 'Tohookwetadu' (one 'o') in the example sentence but 'Toohookwetadu' (two 'o') as the declared form — likely a print inconsistency; verify against audio"
+          },
+          "compound_example": {
+            "components": "Too + Mago'o",
+            "result": "Toomago'o",
+            "english": "black bag"
+          },
+          "example_sentences": [
+            { "paiute": "E Pea Kwo Unu Toohookweta'a", "english": "My mother's hair is real black" },
+            { "paiute": "Ka Tohookwetadu E Gea", "english": "Give me the black one" }
+          ]
+        },
+        {
+          "english": "brown",
+          "notes": "Four distinct words for brown appear in the source. All four are demonstrated only with compound forms using Padooa'a (bear). They may represent different shades or be regional/dialectal variants. Verify distinctions against audio.",
+          "brown_forms": [
+            {
+              "adjective": "Etsekweta",
+              "compound_example": { "components": "Etse + Padooa'a", "result": "Etsepadooa'a", "english": "brown bear" }
+            },
+            {
+              "adjective": "Toopesakweta",
+              "compound_example": { "components": "Toopesa + Padooa'a", "result": "Toopesapadooa'a", "english": "brown bear" }
+            },
+            {
+              "adjective": "Otukweta",
+              "compound_example": { "components": "Out + Padooa'a", "result": "Otupadooa'a", "english": "brown bear", "notes": "Source uses 'Out' as the prefix here; unusual spelling — verify" }
+            },
+            {
+              "adjective": "Tokakweta",
+              "compound_example": { "components": "Toka + Padooa'a", "result": "Tokapadooa'a", "english": "brown bear" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lesson_number": 23,
+      "title": "Cradleboard",
+      "audio_file": "2 Cradleboard.m4a",
+      "page": "3.2",
+      "category": "material_culture",
+      "section_title": "Hoopu",
+      "section_title_english": "cradleboard",
+      "entries": [
+        { "paiute": "Tubuhu",                "pronunciation": "Tu-bu-hu",                    "english": "hide" },
+        { "paiute": "Kwasupu",               "pronunciation": "Kwa-su-pu",                   "english": "buckskin" },
+        { "paiute": "Wuseba",                "pronunciation": "Wu-se-ba",                    "english": "scrape" },
+        { "paiute": "Kisoo Nusebapu Tubuhu", "pronunciation": "Ki-soo Nu-se-ba-pu Tu-bu-hu", "english": "unscraped hide" },
+        { "paiute": "Tudasomape",            "pronunciation": "Tu-da-so-ma-pe",              "english": "bent frame" },
+        { "paiute": "Tusono'oya",            "pronunciation": "Tu-so-no-o-ya",               "english": "working hide" },
+        { "paiute": "Nasono'oyana",          "pronunciation": "Na-so-no-o-ya-na",            "english": "tanned hide" },
+        { "paiute": "Kwepusea",              "pronunciation": "Kwe-pu-sea",                  "english": "to smoke" },
+        { "paiute": "Nagwepuseapu",          "pronunciation": "Na-gwe-pu-sea-pu",            "english": "smoked hide" },
+        { "paiute": "Nadakadu'u",            "pronunciation": "Na-da-ka-du-u",               "english": "leather on bottom" },
+        { "paiute": "Tutsakoo",              "pronunciation": "Tu-tsa-koo",                  "english": "leather" },
+        { "paiute": "Tsokono'o",             "pronunciation": "Tso-ko-no-o",                 "english": "hood" },
+        { "paiute": "Tunope",                "pronunciation": "Tu-no-pe",                    "english": "tumpline" },
+        { "paiute": "Puma Natsano'na",       "pronunciation": "Pu-ma Na-tsa-no-na",          "english": "tumpline", "notes": "alternate or related form; both Tunope and Puma Natsano'na translate as tumpline" },
+        { "paiute": "Tooda",                 "pronunciation": "Too-da",                      "english": "to lace / wrap" },
+        { "paiute": "Tsadoopa",              "pronunciation": "Tsa-doo-pa",                  "english": "unlace" },
+        { "paiute": "Tsome",                 "pronunciation": "Tso-me",                      "english": "bead" },
+        { "paiute": "Natsomena",             "pronunciation": "Na-tso-me-na",                "english": "beaded" }
+      ]
+    },
+    {
+      "lesson_number": 24,
+      "title": "Helping Words",
+      "audio_file": "3 Helping words.m4a",
+      "page": "3.3",
+      "category": "grammar_words",
+      "notes": "Quantifiers, frequency words, and indefinite pronouns. Item 21 demonstrates the suffix -sumu meaning 'only', shown in context: Kedusu'mu = only groundhogs.",
+      "entries": [
+        { "item_number": 1,  "paiute": "Ewa'yoo / Uwa'yoo",      "english": "a lot", "notes": "two alternate forms" },
+        { "item_number": 2,  "paiute": "Ewasoo / Uwasoo",         "english": "a lot or many times", "notes": "two alternate forms" },
+        { "item_number": 3,  "paiute": "Huu'yoo",                 "english": "few" },
+        { "item_number": 4,  "paiute": "Sagwane",                 "english": "some" },
+        { "item_number": 5,  "paiute": "Nanahaga",                "english": "who all" },
+        { "item_number": 6,  "paiute": "Sumusoo",                 "english": "once" },
+        { "item_number": 7,  "paiute": "Wakwaha",                 "english": "twice / by two" },
+        { "item_number": 8,  "paiute": "Mooe",                    "english": "first" },
+        { "item_number": 9,  "paiute": "Waha Nadatsungudu",       "english": "second one" },
+        { "item_number": 10, "paiute": "Sumodooe",                "english": "sometimes" },
+        { "item_number": 11, "paiute": "Nanasumu",                "english": "each" },
+        { "item_number": 12, "paiute": "No'oko",                  "english": "everything" },
+        { "item_number": 13, "paiute": "No'oyoona",               "english": "everyone" },
+        { "item_number": 14, "paiute": "Tooe Haga",               "english": "anybody" },
+        { "item_number": 15, "paiute": "Tooe Hagano",             "english": "with anyone" },
+        { "item_number": 16, "paiute": "Tooe Hemma",              "english": "anything" },
+        { "item_number": 17, "paiute": "Tooe Hanoo",              "english": "anywhere" },
+        { "item_number": 18, "paiute": "Namekoo",                 "english": "both" },
+        { "item_number": 19, "paiute": "Nano",                    "english": "together" },
+        { "item_number": 20, "paiute": "Nonotsa",                 "english": "always / often" },
+        { "item_number": 21, "paiute": "-sumu",                   "english": "only", "notes": "suffix; example: Kedusu'mu = only groundhogs" },
+        { "item_number": 22, "paiute": "Tsamoope",                "english": "mostly" },
+        { "item_number": 23, "paiute": "Tooe Hanano'o",           "english": "anytime" }
+      ]
+    },
+    {
+      "lesson_number": 25,
+      "title": "Home Commands",
+      "audio_file": "4 Home Commands.m4a",
+      "page": "3.4",
+      "category": "commands",
+      "notes": "Phrases used when speaking to children at home. Includes commands, cautions, and expressions of affection. Several entries show the imperative prefix 'a' (e.g., a Wuke = bring it here) and the negative 'Ki' (e.g., Ki Ki = no no).",
+      "entries": [
+        { "item_number": 1,  "paiute": "Takwaeda",                 "pronunciation": "Ta-kwae-da",            "english": "take your shoes off" },
+        { "item_number": 2,  "paiute": "Tanega I / Mokoya",        "pronunciation": "Ta-ne-ga / Mo-ko-ya",   "english": "put your shoes on", "notes": "two alternate forms" },
+        { "item_number": 3,  "paiute": "Kwasuya",                  "pronunciation": "Kwa-su-ya",             "english": "put your shirt on" },
+        { "item_number": 4,  "paiute": "Yabe Namazooa",            "pronunciation": "Ya-be Na-ma-zooa",      "english": "hurry get dressed" },
+        { "item_number": 5,  "paiute": "Yabe Nagoometa",           "pronunciation": "Ya-be Na-goo-me-ta",    "english": "hurry get undressed" },
+        { "item_number": 6,  "paiute": "Habeka",                   "pronunciation": "Ha-be-ka",              "english": "go lay down" },
+        { "item_number": 7,  "paiute": "Uweka",                    "pronunciation": "U-we-ka",               "english": "go to sleep" },
+        { "item_number": 8,  "paiute": "Ki Momannepana",           "pronunciation": "Ki Mo-ma-nne-pa-na",    "english": "don't do that" },
+        { "item_number": 9,  "paiute": "a Ma'wu !",                "pronunciation": "a Ma-wu",               "english": "leave it alone" },
+        { "item_number": 10, "paiute": "Yabe Kemma'hoo",           "pronunciation": "Ya-be Ke-mma-hoo",      "english": "hurry come here" },
+        { "item_number": 11, "paiute": "Ki Unnepana",              "pronunciation": "Ki U-nne-pa-na",        "english": "be quiet" },
+        { "item_number": 12, "paiute": "Ki a Mamapana",            "pronunciation": "Ki-a-Ma-ma-pa-na",      "english": "don't touch" },
+        { "item_number": 13, "paiute": "Ki Ki",                    "pronunciation": "Ki Ki",                 "english": "no no" },
+        { "item_number": 14, "paiute": "Mano !",                   "pronunciation": "Ma-no",                 "english": "stop it!" },
+        { "item_number": 15, "paiute": "Unooe / Unooetse'e",       "pronunciation": "U-nooe / U-nooe-tse-e", "english": "how cute", "notes": "two alternate forms" },
+        { "item_number": 16, "paiute": "Oo Tukatunguna",           "pronunciation": "Oo Tu-ka-tu-ngu-na",    "english": "ask him or her to eat" },
+        { "item_number": 17, "paiute": "Ki Poyapana",              "pronunciation": "Ki Po-ya-pa-na",        "english": "don't climb" },
+        { "item_number": 18, "paiute": "U Wu'ehoodooa",            "pronunciation": "U Wu-e-hoo-dooa",       "english": "you might fall" },
+        { "item_number": 19, "paiute": "E Gea",                    "pronunciation": "E Gea",                 "english": "give it here" },
+        { "item_number": 20, "paiute": "a Wuke",                   "pronunciation": "a Wu-ke",               "english": "bring it here" },
+        { "item_number": 21, "paiute": "a Tsakaduku",              "pronunciation": "a Tsa-ka-du-ku",        "english": "turn off [tv] / sit it down" },
+        { "item_number": 22, "paiute": "a Tsatumeku",              "pronunciation": "a Tsa-tu-me-ku",        "english": "turn off [faucet]" },
+        { "item_number": 23, "paiute": "Ki Mano Tubemooapana",     "pronunciation": "Ki Ma-no Tu-be-moo-a-pa-na", "english": "don't play with that" }
+      ]
+    },
+    {
+      "lesson_number": 26,
+      "title": "Paiute W's",
+      "audio_file": "5 Paiutes Ws.m4a",
+      "page": "3.5",
+      "category": "questions",
+      "notes": "Question phrases (who, what, where, when, whose). Each entry in the source shows small word-labels above the phrase (e.g., 'what / you / see' above 'Hemma U Poone?'). These component labels are preserved in the 'components' field. Pronoun distinctions: U = you (singular), Mu = you guys (two or more). Verb distinctions for 'see': Poone (general), Poonekatu (sitting), Poonekwuna (standing), Poonenata'a (plural sitting), Poonekono'o (plural standing), Poonega'a (going to see).",
+      "entries": [
+        {
+          "paiute": "Hemma U Poone?",
+          "english": "what do you see?",
+          "components": { "Hemma": "what", "U": "you", "Poone": "see" }
+        },
+        {
+          "paiute": "Hemma U Poonekatu?",
+          "english": "what are you looking at?",
+          "components": { "Hemma": "what", "U": "you", "Poonekatu": "see-sit" },
+          "context": "talking to someone sitting down"
+        },
+        {
+          "paiute": "Hemma U Poonekwuna?",
+          "english": "what are you looking at?",
+          "components": { "Hemma": "what", "U": "you", "Poonekwuna": "see-stand" },
+          "context": "talking to someone standing"
+        },
+        {
+          "paiute": "Hemma Mu Poonenata'a?",
+          "english": "what are you guys looking at?",
+          "components": { "Hemma": "what", "Mu": "you guys", "Poonenata'a": "see-sit-plural" },
+          "context": "talking to two or more persons sitting down"
+        },
+        {
+          "paiute": "Hemma Mu Poonekono'o?",
+          "english": "what are you guys looking at?",
+          "components": { "Hemma": "what", "Mu": "you guys", "Poonekono'o": "see-stand-plural" },
+          "context": "talking to two or more persons standing"
+        },
+        {
+          "paiute": "Hemma Mu Poonega'a?",
+          "english": "what are you guys going to see?",
+          "components": { "Hemma": "what", "Mu": "you guys", "Poonega'a": "see-going to" }
+        },
+        {
+          "paiute": "Haga Mu Poonega'a?",
+          "english": "who are you guys going to see?",
+          "components": { "Haga": "who", "Mu": "you guys", "Poonega'a": "see-going to" }
+        },
+        {
+          "paiute": "Hee U Mago'okwae?",
+          "english": "what is in your bag?",
+          "components": { "Hee": "what", "U": "your", "Mago'okwae": "bag-in" }
+        },
+        {
+          "paiute": "Hayoo Esoo Nanea'a",
+          "english": "what is this called / what is the name of this?",
+          "components": { "Hayoo": "what", "Esoo": "this", "Nanea'a": "name" }
+        },
+        {
+          "paiute": "Hayoo Masoo Nanea'a?",
+          "english": "what is that called / what is the name of that?",
+          "components": { "Hayoo": "what", "Masoo": "that", "Nanea'a": "name" }
+        },
+        {
+          "paiute": "Haga Oosoo Tooebetse'e?",
+          "english": "who is that young man?",
+          "components": { "Haga": "who", "Oosoo": "that", "Tooebetse'e": "young man" }
+        },
+        {
+          "paiute": "Hayoo U Nanea'a?",
+          "english": "what is your name?",
+          "components": { "Hayoo": "what", "U": "your", "Nanea'a": "name" }
+        }
+      ]
+    },
+    {
+      "lesson_number": 27,
+      "title": "Paiute W's continued",
+      "audio_file": "6 Paiute Ws continued.m4a",
+      "page": "3.6",
+      "category": "questions",
+      "entries": [
+        {
+          "paiute": "Hee Masoo?",
+          "english": "what is that?",
+          "components": { "Hee": "what", "Masoo": "that" }
+        },
+        {
+          "paiute": "Hanano'o Mu Meakwu?",
+          "english": "when are you guys going?",
+          "components": { "Hanano'o": "when", "Mu": "you guys", "Mea": "go", "kwu": "going to" }
+        },
+        {
+          "paiute": "Hagatu Esoo?",
+          "english": "whose is this?",
+          "components": { "Hagatu": "whose", "Esoo": "this" }
+        },
+        {
+          "paiute": "Hanoo E Wehee?",
+          "english": "where is my knife?",
+          "components": { "Hanoo": "where", "E": "my", "Wehee": "knife" }
+        },
+        {
+          "paiute": "Hayoo U Padu Nane'a?",
+          "english": "what is your daughter's name?",
+          "components": { "Hayoo": "what", "U": "your", "Padu": "daughter", "Nane'a": "name" }
+        },
+        {
+          "paiute": "Hagano U Petu?",
+          "english": "who did you come with or arrive with?",
+          "components": { "Hagano": "who with", "U": "you", "Petu": "arrive" }
+        },
+        {
+          "paiute": "Hanoo U Hitse?",
+          "english": "where is your sweetheart?",
+          "components": { "Hanoo": "where", "U": "your", "Hitse": "sweetheart" }
+        },
+        {
+          "paiute": "Hagaba U Katukwu?",
+          "english": "who are you going to sit by?",
+          "components": { "Hagaba": "who by", "U": "you", "Katu": "sit", "kwu": "going to" }
+        },
+        {
+          "paiute": "Hanano'o Tamme Manokwu?",
+          "english": "when are we going to quit?",
+          "components": { "Hanano'o": "when", "Tamme": "we", "Mano": "quit", "kwu": "going to" }
+        },
+        {
+          "paiute": "Meno'o Hanokwae?",
+          "english": "what time is it now?",
+          "components": { "Meno'o": "now", "Hanokwae": "time" }
+        },
+        {
+          "paiute": "Hee O'o Meano'o?",
+          "english": "what's that going along over there?",
+          "components": { "Hee": "what", "O'o": "over there", "Meano'o": "going along" }
+        },
+        {
+          "paiute": "Hee O Paa'a Wunu?",
+          "english": "what's that standing up there?",
+          "components": { "Hee": "what", "O": "over there", "Paa'a": "high", "Wunu": "stand" }
+        }
+      ]
+    },
+    {
+      "lesson_number": 28,
+      "title": "All About Eating",
+      "audio_file": "7 All About Eating.m4a",
+      "page": "3.7",
+      "category": "food_and_eating",
+      "notes": "Centers on the verb Tuka (eat) and its conjugated/derived forms, showing aspect, number, tense, and related states. Each form includes a gloss of its grammatical meaning plus an example sentence from the source.",
+      "verb_root": { "paiute": "Tuka", "pronunciation": "Tu-ka", "english": "eat" },
+      "verb_forms": [
+        {
+          "paiute": "Tukawunu",
+          "gloss": "eating",
+          "grammatical_note": "ongoing / progressive",
+          "example_sentence": { "paiute": "Hemma U Tukawunu?", "english": "what are you eating?" }
+        },
+        {
+          "paiute": "Tukagatu",
+          "gloss": "eating [sitting, one person]",
+          "grammatical_note": "one person sitting down eating",
+          "example_sentence": { "paiute": "Hemma U Tukagatu?", "english": "what are you eating?" }
+        },
+        {
+          "paiute": "Tukayukwe",
+          "gloss": "eating [sitting, two persons]",
+          "grammatical_note": "two persons sitting down eating",
+          "example_sentence": { "paiute": "Hemma Mu Tukayukwe?", "english": "what are you guys eating?" }
+        },
+        {
+          "paiute": "Tukanata'a",
+          "gloss": "eating [sitting, three or more]",
+          "grammatical_note": "three or more persons sitting down eating",
+          "example_sentence": { "paiute": "Hemma Mu Tukanata'a?", "english": "what are you guys eating?" }
+        },
+        {
+          "paiute": "Tukagono'o",
+          "gloss": "eating [group, three or more]",
+          "grammatical_note": "a group of three or more persons eating",
+          "example_sentence": { "paiute": "Hemma Mu Tukagono'o?", "english": "what are you guys eating?" }
+        },
+        {
+          "paiute": "Tukapu",
+          "gloss": "ate",
+          "grammatical_note": "past tense",
+          "example_sentence": { "paiute": "U ha'a Mo'asoo Tukapu?", "english": "have you already eaten?" }
+        },
+        {
+          "paiute": "Tuka'hoo",
+          "gloss": "eaten",
+          "grammatical_note": "recent past",
+          "example_sentence": { "paiute": "Numme Pudu Tuka'hoo", "english": "we just ate" }
+        },
+        {
+          "paiute": "Tuka'hootooa",
+          "gloss": "went, ate and returned",
+          "grammatical_note": "completed action with return",
+          "example_sentence": { "paiute": "Hanoo U Tuka'hootooa?", "english": "where did you eat and return from?" }
+        },
+        {
+          "paiute": "Tukamea'a",
+          "gloss": "go to eat / gone to eat",
+          "grammatical_note": "talking to two persons",
+          "example_sentence": { "paiute": "Hanoo Umu Tukamea'a?", "english": "where did they go to eat?" }
+        },
+        {
+          "paiute": "Tukaga'a",
+          "gloss": "go to a place to eat",
+          "grammatical_note": "directional eating",
+          "example_sentence": { "paiute": "Nu Oodenoowae Tukaga'a", "english": "I'm going to eat in Reno" }
+        },
+        {
+          "paiute": "Tukanoga'a",
+          "gloss": "going along eating",
+          "grammatical_note": "eating while traveling",
+          "example_sentence": { "paiute": "Hemma Oosoo Tukanoga'a?", "english": "what is he/she eating along?" }
+        },
+        {
+          "paiute": "Tukatungu",
+          "gloss": "tell or ask to eat",
+          "grammatical_note": "causative / directive",
+          "example_sentence": { "paiute": "Mu Pubua'amu Tukatungu", "english": "ask your friends to eat" }
+        },
+        {
+          "paiute": "Tukakwu",
+          "gloss": "will eat / going to eat",
+          "grammatical_note": "future tense",
+          "example_sentence": { "paiute": "Hemma Tamme Tukakwu?", "english": "what are we going to eat?" }
+        },
+        {
+          "paiute": "Netuka",
+          "gloss": "want to eat",
+          "grammatical_note": "desiderative",
+          "example_sentence": { "paiute": "Nu Kammu Netuka", "english": "I want to eat jackrabbit" }
+        },
+        {
+          "paiute": "Nadukatungu",
+          "gloss": "told or asked to eat",
+          "grammatical_note": "passive causative",
+          "example_sentence": { "paiute": "Mu Mooe Nadukatungu", "english": "you guys are asked to eat first" }
+        },
+        {
+          "paiute": "Nadukana",
+          "gloss": "refers to food",
+          "grammatical_note": "nominal / food-related",
+          "example_sentence": { "paiute": "Nu Nadukana Tumuga'a", "english": "I'm going to buy food" }
+        }
+      ],
+      "eating_related_states": [
+        {
+          "paiute": "Ki U Mooe Koena Tukapana",
+          "english": "don't eat your first kill",
+          "notes": "cultural phrase / prohibition — standalone saying"
+        },
+        {
+          "paiute": "Tseayae'e",
+          "gloss": "hungry",
+          "example_sentence": { "paiute": "Nu Unu Tseayae'e", "english": "I'm real hungry" }
+        },
+        {
+          "paiute": "Tseayaegatu",
+          "gloss": "sitting down hungry",
+          "grammatical_note": "hungry while sitting, one person",
+          "example_sentence": { "paiute": "Nu Unu Tseayaegatu", "english": "I'm sitting here real hungry" }
+        },
+        {
+          "paiute": "Tseayaeyukwe",
+          "gloss": "sitting down hungry, two persons",
+          "grammatical_note": "hungry while sitting, two persons",
+          "example_sentence": { "paiute": "Numme Unu Tseayaeyukwe", "english": "we're sitting here real hungry" }
+        },
+        {
+          "paiute": "Tseamannewunu",
+          "gloss": "acting hungry",
+          "example_sentence": { "paiute": "Soo Nana Unu Tseamannewunu", "english": "the man is acting real hungry" }
+        },
+        {
+          "paiute": "Nahatugwe",
+          "gloss": "waste",
+          "example_sentence": { "paiute": "Ki U Tukana Nahatugwepana", "english": "don't waste your food" }
+        },
+        {
+          "paiute": "Kuwa'ya",
+          "gloss": "chew",
+          "example_sentence": { "paiute": "Pesa U Tukana Kuwa'ya U Tsage'hoodooa", "english": "chew your food good, you might choke" }
+        },
+        {
+          "paiute": "Kutsu'we",
+          "gloss": "gnaw",
+          "example_sentence": { "paiute": "Soo Sadu'u Tu Oho Kutsu'wegatu", "english": "the dog is gnawing his bone [sitting]" }
+        },
+        {
+          "paiute": "Soo'a",
+          "gloss": "consume / eat up",
+          "example_sentence": { "paiute": "No'oko U Tuuna'na Soo'a", "english": "eat all you dished out" }
+        },
+        {
+          "paiute": "Wutsu'me",
+          "gloss": "filled up / full",
+          "example_sentence": { "paiute": "Nu Wutsumu'hoo", "english": "I'm filled up / I'm full" }
+        }
+      ]
+    },
+    {
+      "lesson_number": 29,
+      "title": "Utensils and Food Names",
+      "audio_file": "8 Utensils and Food Names.m4a",
+      "page": "3.8",
+      "category": "food_and_eating",
+      "notes": "Puma is documented as a grammatical/instrumental prefix meaning 'instrument you do verb action with'. Combined with vessel names it specifies which container type is intended: Puma Nahebena = refers to a cup, Puma Na'egena = refers to a bowl, Puma Nadukana = refers to a plate. Tookoo appears here as 'meat' — same word listed in Disc 2 Body Parts as 'body, skin, flesh'. Context-dependent.",
+      "entries": [
+        { "paiute": "Wehe",                  "english": "knife" },
+        { "paiute": "Tutsekwuhuna",           "english": "fork" },
+        { "paiute": "Tutse'egenoo",           "english": "spoon", "notes": "full form" },
+        { "paiute": "Egenoo",                 "english": "spoon", "notes": "short form" },
+        { "paiute": "Katunoo",                "english": "chair" },
+        { "paiute": "Tukanoo",                "english": "table" },
+        { "paiute": "Pukooba Nadukana",       "english": "refers to a table" },
+        { "paiute": "Tseda",                  "english": "cup, bowl, plate" },
+        { "paiute": "Puma Nahebena",          "english": "refers to a cup" },
+        { "paiute": "Puma Na'egena",          "english": "refers to a bowl" },
+        { "paiute": "Puma Nadukana",          "english": "refers to a plate" },
+        { "paiute": "Puma",                   "english": "instrument you do verb action with", "notes": "grammatical/instrumental prefix" },
+        { "paiute": "Hanootu",                "english": "which one" },
+        { "paiute": "Ongabe",                 "english": "salt" },
+        { "paiute": "Too'ongabe",             "english": "pepper", "notes": "source note: black salt" },
+        { "paiute": "Pesa Tsakamakute",       "english": "spices, ketchup, mustard, mayonnaise, etc." },
+        { "paiute": "Pehabe",                 "english": "sugar, anything sweet" },
+        { "paiute": "Tukabu",                 "english": "bread" },
+        { "paiute": "Tookoo",                 "english": "meat", "notes": "same word as body/skin/flesh in Disc 2 Body Parts — context-dependent" },
+        { "paiute": "Pasa Tukape",            "english": "crackers" },
+        { "paiute": "Yoohoo Tukabu",          "english": "fried bread" },
+        { "paiute": "Pooetukape",             "english": "vegetable, salad" },
+        { "paiute": "Tudomayua'a",            "english": "baking powder" },
+        { "paiute": "Pehatoogoonahape",       "english": "cake, cookies", "notes": "full form" },
+        { "paiute": "Pehatukabu",             "english": "cake or cookies", "notes": "short form" },
+        { "paiute": "Hooba",                  "english": "soup" },
+        { "paiute": "Paape",                  "english": "pinenut soup", "notes": "cross-reference: also listed in Disc 2 Trees and Plants as 'pinenut soup'" }
+      ]
+    },
+    {
+      "lesson_number": 30,
+      "title": "Words Pertaining to Food",
+      "audio_file": "9 Words Pertaining To Food.m4a",
+      "page": "3.9",
+      "category": "food_and_eating",
+      "entries": [
+        { "paiute": "Maka",           "pronunciation": "Ma-ka",          "english": "give to feed" },
+        { "paiute": "Hebe",           "pronunciation": "He-be",          "english": "drink", "notes": "verb" },
+        { "paiute": "Nahebena",       "pronunciation": "Na-he-be-na",    "english": "beverage" },
+        { "paiute": "Toogoohanne",    "pronunciation": "Too-goo-ha-nne", "english": "cook" },
+        { "paiute": "Saanoo",         "pronunciation": "Saa-noo",        "english": "pan" },
+        { "paiute": "Paasaanoo",      "pronunciation": "Paa-saa-noo",    "english": "pot" },
+        { "paiute": "Paasaa",         "pronunciation": "Paa-saa",        "english": "boil" },
+        { "paiute": "Tutsebooe",      "pronunciation": "Tu-tse-booe",    "english": "boil", "notes": "alternate form for boil" },
+        { "paiute": "Yoohoo",         "pronunciation": "Yoo-hoo",        "english": "fat" },
+        { "paiute": "Yoohoo Saa",     "pronunciation": "Yoo-hoo Saa",   "english": "fry" },
+        { "paiute": "Kope'e",         "pronunciation": "Ko-pe-e",        "english": "coffee" },
+        { "paiute": "Kope'e Tseda",   "pronunciation": "Ko-pe-e Tse-da","english": "coffeepot, coffee cup" },
+        { "paiute": "Tuuneta",        "pronunciation": "Tuu-ne-ta",      "english": "set table" },
+        { "paiute": "Tunoku",         "pronunciation": "Tu-no-ku",       "english": "make supplies to take" },
+        { "paiute": "Tuno'ho",        "pronunciation": "Tu-nu-ho",       "english": "to roast" },
+        { "paiute": "Tugupenaena",    "pronunciation": "Tu-gu-pe-nae-na","english": "leftovers" },
+        { "paiute": "Tseda Wanapu",   "pronunciation": "Tse-da Wa-napu", "english": "dish towel" },
+        { "paiute": "Tsaku",          "pronunciation": "Tsa-ku",         "english": "pour", "example_sentence": { "paiute": "Kope'e E Tsaku", "english": "pour me some coffee" } },
+        { "paiute": "Unu Kwasupu",    "pronunciation": "U-nu Kwa-su-pu", "english": "cooked well done" },
+        { "paiute": "Kootoosebu",     "pronunciation": "Koo-too-se-bu",  "english": "charcoal" },
+        { "paiute": "Wesoko",         "pronunciation": "We-so-ko",       "english": "greasy" },
+        { "paiute": "Pe'hepu",        "pronunciation": "Pe-he-pu",       "english": "rotten" },
+        { "paiute": "Wupayooe",       "pronunciation": "Wu-pa-yooe",     "english": "slice" }
+      ]
+    },
+    {
+      "lesson_number": 31,
+      "title": "Eating Commands and Questions",
+      "audio_file": "10 Eating Commands and Qs.m4a",
+      "page": "3.10",
+      "category": "food_and_eating",
+      "notes": "Full conversational phrases used around mealtimes. Yoonga is glossed in the source as 'carry something in container'. Tamme = we / us.",
+      "entries": [
+        { "paiute": "Hanano'o Tamme Tukakwu?",     "english": "when are we going to eat?" },
+        { "paiute": "Hemma Tamme Tukakwu?",         "english": "what are we going to eat?" },
+        { "paiute": "Hanoo Tamme Tukakwu?",         "english": "where are we going to eat?" },
+        { "paiute": "Hanoo Soo Ongabe?",            "english": "where is the salt?" },
+        { "paiute": "Ka Ongabe Wu'ke",              "english": "bring the salt" },
+        { "paiute": "Ka Ongabe Yoonga'ke",          "english": "bring the salt [carried in container]", "notes": "Yoonga = carry something in container" },
+        { "paiute": "Ongabe E Gea",                 "english": "give me the salt" },
+        { "paiute": "Ongabe Yootoo Taya",           "english": "send the salt this way" },
+        { "paiute": "Esoo Pesa Kamma",              "english": "this tastes good" },
+        { "paiute": "Esoo Pesa Kammawunu",          "english": "this is tasting good" },
+        { "paiute": "Hee Esoo?",                    "english": "what is this?" },
+        { "paiute": "Esoo Pesa Nasaapu",            "english": "this is really cooked well" },
+        { "paiute": "Esoo Umme Tumadabooena?",      "english": "is this what you made?" },
+        { "paiute": "Hanoo Soo Too'ongabe?",        "english": "where is the pepper?", "notes": "source note: black salt" },
+        { "paiute": "Haga Eka Madabooe?",           "english": "who made this?" },
+        { "paiute": "Hemma U Hebegatu?",            "english": "what are you drinking?", "context": "talking to someone sitting down" },
+        { "paiute": "Nummeba Tuka",                 "english": "eat with us" },
+        { "paiute": "Nu Posenumma",                 "english": "I feel bloated" },
+        { "paiute": "Nu Unu Tseayae'e Ono U?",     "english": "I'm real hungry. How about you?" },
+        { "paiute": "Nu Wutzu'mega'a",              "english": "I'm getting full" },
+        { "paiute": "U Tupa Matsua",                "english": "wipe your mouth" }
+      ]
+    },
+    {
+      "lesson_number": 32,
+      "title": "Food Prayer",
+      "audio_file": "11 Food Prayer.m4a",
+      "page": "3.11",
+      "category": "prayer_ceremony",
+      "notes": "A complete Numu food prayer, presented in the source with the full Paiute text followed by a line-by-line translation. Poowa is the blowing blessing — a ritual sound/action performed at the beginning and end of the prayer. The prayer is reproduced exactly as laid out in the source material.",
+      "prayer_lines": [
+        {
+          "paiute": "Pesa Tamme Yaa Sumuna",
+          "english": "It is good that we are gathered here"
+        },
+        {
+          "paiute": "Te Naa Tammegoobakwaetu Tamme Tukakwuna Sootuhika",
+          "english": "Our Father who is above us. Bless our food we are going to eat"
+        },
+        {
+          "paiute": "Umu Toogoohannedu, Umu Yaa Hemma Yoongapetudu",
+          "english": "Those who cooked the food, Those who brought the food bless them also"
+        },
+        {
+          "paiute": "Umu Bono'o Oohoosoo.",
+          "english": "[bless them also — continuation of above line]"
+        },
+        {
+          "paiute": "Yaese Pesa Tuwasoo Umu Mabesaku",
+          "english": "And also heal them"
+        },
+        {
+          "paiute": "No'oko Hee Umu Mannena Pesasoo Sootunuga",
+          "english": "Treat them well in everything they do"
+        },
+        {
+          "paiute": "Pesatoo Mea",
+          "english": "Go in a good way"
+        },
+        {
+          "paiute": "Poowa",
+          "english": "blowing blessing",
+          "notes": "Performed at beginning and end of prayer"
+        }
+      ]
+    }
+  ]
+}

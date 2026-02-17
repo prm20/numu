@@ -1,0 +1,555 @@
+Here’s an updated project log in the same style as your 2026-02-17-12am.txt, with only the parts that changed tonight modified/extended.
+
+You can save this as something like 2026-02-17-2am.txt.
+---
+
+High-Level Summary / ContextYou’re building Numu: a Django-based backend for a Northern Paiute language project. The data for the project comes from four discs, each represented as a JSON file (numu_disc1.json – numu_disc4.json). The goals so far have been:
+• Get a custom Django management command working to import all this disc JSON into the database.
+• Make sure the data model is set up correctly (Disc, Lesson, Entry, Lexeme, etc.).
+• Run imports for Discs 1–4 so the database is fully populated.
+• Clean up the Django admin so you can actually explore and QA the data (filter by disc, clickable titles, etc.).
+• Keep things future-proof for a later React / React Native frontend and potential AI features (e.g., search, tutoring, etc.) by relying on stable IDs, not fragile text fields.
+• Stand up a basic Django REST Framework (DRF) API and a minimal React web client that can hit it end-to-end.
+
+As of now you have:
+• A working backend project (backend/) with the numu app.
+• A working custom import command import_discs that reads from your json directory.
+• All four discs imported into the database (lessons, entries, lexemes, flags, and other associated forms).
+• Django admin customized enough to:
+  • Filter lessons by disc.
+  • Use lesson titles as the clickable link.
+  • Expose disc info for entries via relationships (lesson → disc).
+• A working DRF API exposing Disc, Lesson, and Entry as read-only endpoints under /api/.
+• A React web test client (numu-web/) that:
+  • Calls GET http://127.0.0.1:8000/api/entries/ and GET http://127.0.0.1:8000/api/lessons/.
+  • Shows a dropdown of lessons.
+  • Lists entries and filters them by the selected lesson, including disc/lesson context in the UI.
+
+No production-ready frontend (React / React Native) is implemented yet, but you now have a functional “hello world across the stack:”React → fetch → Django REST API → Postgres → Django → React UI.
+---
+
+Project Overview
+• Project root (backend):/Users/pdogg/Documents/numu/dev/backend
+• Main components:
+  • manage.py – standard Django entrypoint.
+  • config/ – Django project settings:
+    • config.settings is in use (per runserver output).
+  • numu/ – Django app for your language data.
+    • models.py – defines Disc, Lesson, Entry, Lexeme, and related models (flags, forms, etc.).
+    • admin.py – auto-registers all models + a custom admin for Lesson (and possibly later Entry).
+    • views_api.py – DRF viewsets for Disc, Lesson, and Entry (read-only API).
+    • serializers.py – DRF serializers for Disc, Lesson, and Entry.
+    • management/commands/import_discs.py – custom management command to import disc JSON into the DB.
+    • migrations/ – DB migrations for the numu app.
+  • json/ – folder with disc JSON files:
+    • json/numu_disc1.json
+    • json/numu_disc2.json
+    • json/numu_disc3.json
+    • json/numu_disc4.json
+• Environment:
+  • Virtualenv: .venv inside backend.
+  • Django version: 4.2.28.
+  • Python version: 3.13 (in .venv/lib/python3.13/site-packages).
+
+Additionally, you now have a separate React web test client:
+• React app root:/Users/pdogg/Documents/numu/dev/numu-web
+
+Used to hit the Django API locally and render entries/lessons.
+---
+
+What We Set Up and Fixed
+1. Making the import_discs Management Command Work
+2. Fixing the JSON_DIR NameError
+3. Creating Disc Objects Before Import
+4. Running the Import Commands (Discs 1–4)
+5. Admin Customization for Lessons
+6. Disc Titles, IDs, and JSON Meta
+
+(These sections are unchanged from the earlier doc; behavior is the same.)
+---
+1. Where Things Stand Now (updated)
+
+You currently have:
+• A working Django backend for Numu with:
+  • Disc, Lesson, Entry, Lexeme, and associated models.
+• A working custom import command:python manage.py import_discs --disc N --json-dir json
+where N is 1–4.
+• All data from the four discs imported and linked correctly:
+  • Lessons per disc:
+    • Disc 1: 9 lessons
+    • Disc 2: 9 lessons
+    • Disc 3: 11 lessons
+    • Disc 4: 12 lessons
+  • Entries, lexemes, flags and all special content types (numbers, animals, verb paradigms, color forms, suffix examples, sentences, etc.) are in the DB.
+• Admin tuned for data exploration:
+  • Lessons:
+    • Filterable by disc.
+    • Show lesson_number, title, disc.
+    • Title is the clickable link.
+  • Discs:
+    • You can rename titles to something more descriptive without breaking imports or future features.
+• New tonight: a working read-only API + React test client:
+  • DRF-powered endpoints under /api/:
+    • /api/discs/
+    • /api/lessons/
+    • /api/entries/
+  • A React web app (numu-web/) that:
+    • Fetches lessons and entries from the Django API.
+    • Lets you pick a lesson from a dropdown.
+    • Shows entries filtered by the selected lesson.
+    • Displays formatted context lines: L<lesson_number>: <lesson title> — Disc <disc_id>: <disc title>.
+---
+1. Future Directions (React / React Native / AI) – updated
+
+When you’re ready to move on, the natural next steps are:
+1. API / Views (build on top of current DRF setup):
+  • You already have:
+    • GET /api/discs/ – list discs.
+    • GET /api/lessons/ – list lessons (with nested disc).
+    • GET /api/entries/ – list entries (with nested lesson + disc, filterable by ?lesson=).
+  • Next API iterations:
+    • Add detail endpoints or custom views if/when you want more tailored payloads (e.g., lesson detail with all entries).
+    • Potentially add lighter-weight serializers for list views (e.g., just lesson_id, disc_id) and richer ones for detail views.
+2. React / React Native frontend:
+  • You now have:
+    • A basic React web test client that proves the stack works.
+  • Next steps:
+    • Decide if you want to keep iterating on this web client or start a React Native (Expo) project.
+    • Build higher-level screens:
+      • Disc list → Lesson list → Lesson detail (entries, audio later).
+    • Continue to use disc.id, lesson.id, entry.id as stable identifiers.
+    • Display human-friendly titles (whatever you set in the admin), avoid hard-coding logic against literal titles.
+3. AI integration:
+  • The imported DB is a clean, structured knowledge source:
+    • Lexicon (via Lexeme / Entry).
+    • Example sentences (SentenceEntry, PrayerLine, etc.).
+    • Morphology (SuffixExample, VerbParadigmForm, ColorForm).
+  • Build APIs to expose the pieces you’d want an AI to query or reference (e.g., semantic search endpoints using embedding fields).
+---
+
+Detailed File Structure (Backend)
+
+(This section is mostly unchanged; only additions are noted.)
+
+Project Root (Backend)Path:/Users/pdogg/Documents/numu/dev/backend
+
+This is the main Django backend project directory. From here you run commands like:
+python manage.py runserver
+python manage.py import_discs ...
+
+
+Key items in this folder:
+• manage.py
+• .venv/
+• config/
+  • config/settings.py
+  • config/urls.py
+  • config/asgi.py / config/wsgi.py
+• numu/
+• json/
+• Other files like requirements.txt, numu_schema.sql, numu_setup_guide.md, notes/, etc.
+---
+
+The numu AppPath:/Users/pdogg/Documents/numu/dev/backend/numu
+
+This is a Django app that encapsulates the Numu domain logic and data model.
+
+Key files:
+• __init__.py
+• apps.py
+• models.py
+  • (unchanged; still defines all the core models as before: Disc, Lesson, Entry, Lexeme, AudioFile, grammar tables, User, ReviewFlag, etc.)
+• admin.py
+  • Behavior unchanged:
+    • Auto-registers all models in the numu app.
+    • Custom LessonAdmin:
+      • list_display shows lesson_number, title, disc.
+      • list_filter = ("disc",) allows filtering lessons by disc.
+      • list_display_links = ("title",) makes the title clickable.
+• serializers.py (new tonight)Path:/Users/pdogg/Documents/numu/dev/backend/numu/serializers.pyResponsibilities:
+  • Define DRF serializers for your core content:
+• # numu/serializers.py
+from rest_framework import serializers
+from .models import Disc, Lesson, Entry
+
+class DiscSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disc
+        fields = ['id', 'title', 'dialect', 'writing_system', 'total_pages', 'notes']
+
+class LessonSerializer(serializers.ModelSerializer):
+    disc = DiscSerializer(read_only=True)
+
+    class Meta:
+        model = Lesson
+        fields = [
+            'id',
+            'disc',
+            'lesson_number',
+            'title',
+            'category',
+            'page',
+            'section_title',
+            'content_tier',
+            'notes',
+        ]
+
+class EntrySerializer(serializers.ModelSerializer):
+    lesson = LessonSerializer(read_only=True)
+
+    class Meta:
+        model = Entry
+        fields = [
+            'id',
+            'lesson',
+            'paiute',
+            'pronunciation',
+            'english',
+            'context_note',
+            'source_notes',
+            'sort_order',
+        ]
+
+  • For now, entries return nested lesson, and lessons return nested disc, which is nice for debugging and the current test client.
+• views_api.py (new tonight)Path:/Users/pdogg/Documents/numu/dev/backend/numu/views_api.pyResponsibilities:
+  • Provide DRF viewsets for Disc, Lesson, and Entry:
+• # numu/views_api.py
+from rest_framework import viewsets
+from .models import Disc, Lesson, Entry
+from .serializers import DiscSerializer, LessonSerializer, EntrySerializer
+
+class DiscViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Disc.objects.all().order_by('id')
+    serializer_class = DiscSerializer
+
+class LessonViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Lesson.objects.select_related('disc').all().order_by('lesson_number')
+    serializer_class = LessonSerializer
+
+class EntryViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = EntrySerializer
+
+    def get_queryset(self):
+        qs = Entry.objects.select_related('lesson', 'lesson__disc').all().order_by('lesson', 'sort_order')
+        lesson_id = self.request.query_params.get('lesson')
+        if lesson_id:
+            qs = qs.filter(lesson_id=lesson_id)
+        return qs
+
+  • Supports:
+    • GET /api/discs/
+    • GET /api/lessons/
+    • GET /api/entries/
+    • GET /api/entries/?lesson=<lesson_id> to filter by lesson.
+• views.py, tests.py
+  • Still not the main focus; API logic is in views_api.py.
+• migrations/
+  • Unchanged.
+---
+
+Management CommandsPath:/Users/pdogg/Documents/numu/dev/backend/numu/management/commands
+
+(Behavior unchanged; import_discs still does what it did before.)
+---
+
+JSON Data DirectoryPath:/Users/pdogg/Documents/numu/dev/backend/json
+
+(Unchanged.)
+---
+
+PostgreSQL Setup & Configuration
+
+(This section is unchanged conceptually; one small update in settings to note.)
+
+Django DATABASES setting (config/settings.py) still uses Postgres as before.
+
+New tonight in config/settings.py:
+• Confirmed/used these additional settings for API/frontend work:REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 50,
+}
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+• Fixed an error where rest_framework was listed twice in INSTALLED_APPS, which caused:django.core.exceptions.ImproperlyConfigured:
+Application labels aren't unique, duplicates: rest_framework
+Now INSTALLED_APPS includes rest_framework only once.
+• Middleware order now includes corsheaders.middleware.CorsMiddleware so Cross-Origin requests from the React dev server (localhost:3000) work without CORS failures.
+---
+
+Django URL Configuration for the API (new tonight)Path:/Users/pdogg/Documents/numu/dev/backend/config/urls.py
+
+You wired up DRF viewsets with a DefaultRouter:
+# config/urls.py
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from numu.views_api import DiscViewSet, LessonViewSet, EntryViewSet
+
+router = DefaultRouter()
+router.register(r'discs', DiscViewSet, basename='disc')
+router.register(r'lessons', LessonViewSet, basename='lesson')
+router.register(r'entries', EntryViewSet, basename='entry')
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),  # all API endpoints under /api/
+]
+
+
+This exposes:
+• GET /api/discs/
+• GET /api/lessons/
+• GET /api/entries/
+
+All are read-only at this point, which is perfect for the current use case.
+---
+
+React Web Test Client (new tonight)
+
+Path:/Users/pdogg/Documents/numu/dev/numu-web
+
+This is a small React app created to verify the end-to-end stack.
+src/api.js
+
+Provides a small helper layer for calling the API:
+// src/api.js
+
+export const API_BASE = 'http://127.0.0.1:8000';
+
+// Build query string, e.g. { lesson: 5 } -> ?lesson=5
+function buildQuery(params = {}) {
+  const entries = Object.entries(params).filter(
+    ([, v]) => v !== undefined && v !== null && v !== ''
+  );
+  if (entries.length === 0) return '';
+  const searchParams = new URLSearchParams();
+  for (const [key, value] of entries) {
+    searchParams.append(key, value);
+  }
+  return `?${searchParams.toString()}`;
+}
+
+// Generic GET wrapper
+async function apiGet(path, params = {}) {
+  const query = buildQuery(params);
+  const res = await fetch(`${API_BASE}${path}${query}`);
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`HTTP ${res.status}: ${text}`);
+  }
+  return res.json();
+}
+
+// Convenience helpers
+export async function fetchEntries(params = {}) {
+  return apiGet('/api/entries/', params);
+}
+
+export async function fetchLessons(params = {}) {
+  return apiGet('/api/lessons/', params);
+}
+
+src/App.js
+
+The main UI:
+• Loads all lessons on mount.
+• Loads entries (optionally filtered by lesson).
+• Renders a lesson dropdown and an entries list.
+• Displays nicely formatted lesson/disc labels and optional pronunciation/context.
+
+Current version:
+// src/App.js
+import React, { useEffect, useState } from 'react';
+import { fetchEntries, fetchLessons } from './api';
+
+function App() {
+  const [entries, setEntries] = useState([]);
+  const [lessons, setLessons] = useState([]);
+  const [selectedLessonId, setSelectedLessonId] = useState(''); // '' = all lessons
+
+  const [loadingEntries, setLoadingEntries] = useState(true);
+  const [loadingLessons, setLoadingLessons] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Load lessons once on mount
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadLessons() {
+      try {
+        setLoadingLessons(true);
+        const data = await fetchLessons();
+        if (!cancelled) {
+          setLessons(data.results || []);
+        }
+      } catch (err) {
+        console.error('Error fetching lessons:', err);
+        if (!cancelled) {
+          setError(err.message || 'Error loading lessons');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingLessons(false);
+        }
+      }
+    }
+
+    loadLessons();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Load entries whenever selectedLessonId changes
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadEntries() {
+      try {
+        setLoadingEntries(true);
+        setError(null);
+
+        const params = {};
+        if (selectedLessonId) {
+          params.lesson = selectedLessonId;
+        }
+
+        const data = await fetchEntries(params);
+        if (!cancelled) {
+          setEntries(data.results || []);
+        }
+      } catch (err) {
+        console.error('Error fetching entries:', err);
+        if (!cancelled) {
+          setError(err.message || 'Error loading entries');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingEntries(false);
+        }
+      }
+    }
+
+    loadEntries();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedLessonId]);
+
+  const handleLessonChange = (e) => {
+    setSelectedLessonId(e.target.value);
+  };
+
+  const isLoading = loadingLessons || loadingEntries;
+
+  return (
+    <div style={{ padding: '1rem', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <h1>Numu Entries</h1>
+      <p>React web client hitting the Django API (DRF).</p>
+
+      {/* Lesson filter */}
+      <div
+        style={{
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+        }}
+      >
+        <label htmlFor="lesson-select" style={{ fontWeight: 500 }}>
+          Filter by lesson:
+        </label>
+        <select
+          id="lesson-select"
+          value={selectedLessonId}
+          onChange={handleLessonChange}
+          style={{ padding: '0.25rem 0.5rem' }}
+        >
+          <option value="">All lessons</option>
+          {lessons.map((lesson) => {
+            const disc = lesson.disc;
+            const lessonLabel = `L${lesson.lesson_number}: ${lesson.title}`;
+            const discLabel = disc ? ` (Disc ${disc.id})` : '';
+            return (
+              <option key={lesson.id} value={lesson.id}>
+                {lessonLabel}{discLabel}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
+      {isLoading && <div style={{ padding: '0.5rem 0' }}>Loading...</div>}
+      {error && (
+        <div style={{ padding: '0.5rem 0', color: 'red' }}>
+          Error: {error}
+        </div>
+      )}
+
+      {!isLoading && !error && (
+        <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+          {entries.map((entry) => {
+            const lesson = entry.lesson;
+            const disc = lesson?.disc;
+
+            const lessonLabel = lesson
+              ? `L${lesson.lesson_number}: ${lesson.title}`
+              : 'Unknown lesson';
+
+            const discLabel = disc
+              ? `Disc ${disc.id}: ${disc.title}`
+              : 'Unknown disc';
+
+            return (
+              <li
+                key={entry.id}
+                style={{
+                  borderBottom: '1px solid #eee',
+                  padding: '0.5rem 0',
+                }}
+              >
+                <div>
+                  <strong>{entry.paiute}</strong>
+                  {entry.pronunciation && (
+                    <span
+                      style={{
+                        marginLeft: '0.5rem',
+                        color: '#666',
+                        fontSize: '0.9em',
+                      }}
+                    >
+                      [{entry.pronunciation}]
+                    </span>
+                  )}
+                </div>
+
+                <div>{entry.english}</div>
+
+                <div
+                  style={{
+                    fontSize: '0.85em',
+                    color: '#555',
+                    marginTop: '0.25rem',
+                  }}
+                >
+                  {lesson && (
+                    <>
+                      {lessonLabel} — {discLabel}
+                    </>
+                  )}
+                </div>
+
+                {entry.context_note && (
+                  <div
+                    style={{
+                      fontSize: '0.8em',
+                      color: '#777',
+                      marginTop: '0
+
