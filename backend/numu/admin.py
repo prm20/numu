@@ -1,26 +1,37 @@
 from django.contrib import admin
 from django.apps import apps
-from .models import Lesson, Entry   # add Entry import
+from .models import Course, Lesson, Entry
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'title', 'source', 'sort_order')
+    list_editable = ('sort_order',)
+    ordering      = ('sort_order', 'id')
+
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ("lesson_number", "title", "disc")
-    list_filter = ("disc",)
-    list_display_links = ("title",)
+    list_display       = ('lesson_number', 'title', 'course', 'category')
+    list_filter        = ('course',)
+    list_display_links = ('title',)
+    search_fields      = ('title', 'category')
+
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
-    list_display = ("paiute", "english", "lesson", "disc")
-    list_filter = ("lesson__disc",)
-    search_fields = ("paiute", "english")
+    list_display  = ('paiute', 'english', 'content_type', 'lesson', 'course')
+    list_filter   = ('content_type', 'lesson__course')
+    search_fields = ('paiute', 'english')
 
-    def disc(self, obj):
-        return obj.lesson.disc
-    disc.admin_order_field = "lesson__disc"
-    disc.short_description = "Disc"
+    def course(self, obj):
+        return obj.lesson.course
+    course.admin_order_field = 'lesson__course'
+    course.short_description = 'Course'
 
-# keep your auto‑register loop below this
-app_config = apps.get_app_config("numu")
+
+# Auto-register any remaining models not already registered above
+app_config = apps.get_app_config('numu')
 
 for model in app_config.get_models():
     try:

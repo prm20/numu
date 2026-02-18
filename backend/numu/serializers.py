@@ -1,7 +1,8 @@
 # numu/serializers.py
 
 from rest_framework import serializers
-from .models import Disc, Lesson, Entry, Lexeme
+from .models import Course, Disc, Lesson, Entry, Lexeme
+
 
 class LexemeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,10 +12,26 @@ class LexemeSerializer(serializers.ModelSerializer):
             'paiute',
             'is_multi_sense',
             'needs_lexeme_review',
-            # we intentionally do NOT expose paiute_normalized or embedding yet
         ]
 
 
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = [
+            'id',
+            'title',
+            'description',
+            'dialect',
+            'writing_system',
+            'source',
+            'total_pages',
+            'notes',
+            'sort_order',
+        ]
+
+
+# Kept for backwards compatibility during migration period
 class DiscSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disc
@@ -22,13 +39,13 @@ class DiscSerializer(serializers.ModelSerializer):
 
 
 class LessonSerializer(serializers.ModelSerializer):
-    disc = DiscSerializer(read_only=True)
+    course = CourseSerializer(read_only=True)
 
     class Meta:
         model = Lesson
         fields = [
             'id',
-            'disc',
+            'course',
             'lesson_number',
             'title',
             'category',
@@ -47,18 +64,21 @@ class EntrySerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'lesson',
+            'content_type',
             'paiute',
             'pronunciation',
             'english',
             'context_note',
             'source_notes',
             'sort_order',
+            'metadata',
         ]
+
 
 class EntryBriefSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
-        fields = ['id', 'paiute', 'english', 'lesson_id', 'sort_order']
+        fields = ['id', 'content_type', 'paiute', 'english', 'lesson_id', 'sort_order']
 
 
 class LexemeDetailSerializer(serializers.ModelSerializer):
@@ -73,4 +93,3 @@ class LexemeDetailSerializer(serializers.ModelSerializer):
             'needs_lexeme_review',
             'entries',
         ]
-

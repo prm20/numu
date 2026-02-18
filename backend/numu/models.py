@@ -42,11 +42,15 @@ class FlagSource(models.TextChoices):
 
 
 # =============================================================================
-# CORE STRUCTURE: discs -> lessons -> audio_files
+# CORE STRUCTURE: courses -> lessons -> audio_files
 # =============================================================================
 
 class Disc(models.Model):
-    """One physical lesson disc (1-4). id is the disc number, not auto-incremented."""
+    """
+    One physical lesson disc (1-4). id is the disc number, not auto-incremented.
+    DEPRECATED: retained for data migration only. Use Course going forward.
+    All lesson data has been migrated to Course. Do not add new lessons here.
+    """
     id             = models.SmallIntegerField(primary_key=True)
     title          = models.TextField()
     dialect        = models.TextField(default='Pyramid Lake Paiute Tribe')
@@ -62,18 +66,54 @@ class Disc(models.Model):
         return self.title
 
 
+class Course(models.Model):
+    """
+    Top-level grouping of lessons. Curriculum-agnostic replacement for Disc.
+
+    Ralph Burns' four discs are represented as four Course rows.
+    Future curricula (WCSD Paiute classes, community recordings, etc.)
+    are each their own Course — no schema changes required.
+
+    source: who authored the curriculum, e.g. "Ralph Burns" or "WCSD / Stacey Burns"
+    sort_order: controls display ordering in the app
+    """
+    title          = models.CharField(max_length=255)
+    description    = models.TextField(blank=True, null=True)
+    dialect        = models.CharField(max_length=100, blank=True, null=True)
+    writing_system = models.CharField(max_length=100, blank=True, null=True)
+    source         = models.CharField(max_length=255, blank=True, null=True)
+    total_pages    = models.SmallIntegerField(null=True, blank=True)
+    notes          = models.TextField(blank=True, null=True)
+    sort_order     = models.SmallIntegerField(null=True, blank=True)
+    created_at     = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table  = 'courses'
+        ordering  = ['sort_order', 'id']
+
+    def __str__(self):
+        return self.title
+
+
 class Lesson(models.Model):
     """
-    One lesson track on a disc.
-    lesson_number is sequential across ALL discs (4-44, never restarting per disc).
+    One lesson within a course.
+    lesson_number is sequential across ALL courses in the Ralph Burns curriculum (4-44).
+    Future curricula may use their own numbering — lesson_number is unique per course,
+    not globally unique once multiple courses exist.
 
-    page: "disc.page" format from source, e.g. "2.5"
+    page: "disc.page" format from source, e.g. "2.5" (Ralph Burns specific, nullable)
     section_title: optional section header from source, e.g. "Numudooe"
-    notes: top-level structural notes spanning multiple entries:
-           color_morphology_note (Disc 3), grammar_suffix_note (Disc 4)
+    notes: top-level structural notes spanning multiple entries
     content_tier defaults to 'tribal_member' -- lessons are restricted by default.
     """
-    disc          = models.ForeignKey(Disc, on_delete=models.PROTECT, related_name='lessons')
+    course        = models.ForeignKey(Course, on_delete=models.PROTECT, related_name='lessons')
+    # Keep disc FK temporarily during migration — will be removed in a follow-up migration
+    disc          = models.ForeignKey(
+        Disc, on_delete=models.PROTECT, related_name='lessons',
+        null=True, blank=True,
+        help_text='Deprecated: use course instead.'
+    )
     lesson_number = models.SmallIntegerField(unique=True)
     title         = models.TextField()
     category      = models.TextField()
@@ -166,31 +206,91 @@ class Lexeme(models.Model):
 
 class Entry(models.Model):
     """
-    Standard vocabulary entry. Covers pronouns, nouns, verbs (base form),
-    phrases, commands, family terms, clothing, body parts, animals (base list),
-    plants, directions, color adjective forms, number base forms, question
-    sentences without word glosses, Numma/ha'a phrases, and eating-related
-    state words from L28 (hunger/satiety -- these go here, not a separate table).
+    Universal content entry. Curriculum-agnostic — covers all content types
+    from any curriculum source via content_type + metadata JSONB.
+
+    content_type identifies the kind of content. The base set covers Ralph Burns'
+    curriculum; new values can be added for future curricula without schema changes.
+
+    metadata JSONB holds structured data specific to each content_type:
+
+        'vocabulary'      — no metadata required (paiute/english/pronunciation sufficient)
+
+        'verb_form'       — {"grammatical_tags": {"aspect": "past", "number": "singular"},
+                              "base_verb_lexeme_id": 42}
+
+        'verb_phrase'     — no extra metadata typically needed
+
+        'color_form'      — {"adjective": "Atsakweta", "predicate": "Atsakweta'a",
+                              "predicate_gloss": "is red", "noun_form": "Atsakwetadu",
+                              "noun_gloss": "red one", "extra_forms": [...],
+                              "compound_components": "Atsa + Kwasu",
+                              "compound_result": "Atsakwasu",
+                              "compound_english": "red shirt",
+                              "examples": [{"paiute": "...", "english": "..."}]}
+
+        'color_usage'     — {"source_number": 3}
+
+        'suffix_example'  — {"suffix": "-kwu", "base_verb": "Nadakwunae",
+                              "base_verb_english": "jump", "base_verb_lexeme_id": 17,
+                              "suffixed_form": "Nadakwunaekwu"}
+
+        'sentence'        — {"components": {"what": "Hemma", "you": "U", "see": "Poone"}}
+
+        'prayer_line'     — {"line_number": 3, "is_ritual_action": false,
+                              "ritual_note": null}
+
+        'number'          — {"numeral": 11, "entry_type": "compound",
+                              "components": "Naemisa + Sumu'yoo"}
+
+        'animal_category' — no extra metadata typically needed
+
+    lexeme: nullable for content types that are not standard vocabulary
+            (verb paradigm forms, prayer lines, etc.)
 
     sort_order preserves source ordering within a lesson.
-    source_notes from JSON are also piped to review_flags at import time.
+    source_notes from JSON are also written to review_flags at import time.
     """
-    lesson        = models.ForeignKey(Lesson, on_delete=models.PROTECT, related_name='entries')
-    lexeme        = models.ForeignKey(Lexeme, on_delete=models.PROTECT, related_name='entries')
+
+    class ContentType(models.TextChoices):
+        VOCABULARY      = 'vocabulary',       'Vocabulary'
+        VERB_FORM       = 'verb_form',         'Verb Form'
+        VERB_PHRASE     = 'verb_phrase',       'Verb Phrase'
+        COLOR_FORM      = 'color_form',        'Color Form'
+        COLOR_USAGE     = 'color_usage',       'Color Usage'
+        SUFFIX_EXAMPLE  = 'suffix_example',    'Suffix Example'
+        SENTENCE        = 'sentence',          'Sentence'
+        PRAYER_LINE     = 'prayer_line',       'Prayer Line'
+        NUMBER          = 'number',            'Number'
+        ANIMAL_CATEGORY = 'animal_category',   'Animal Category'
+
+    lesson       = models.ForeignKey(Lesson, on_delete=models.PROTECT, related_name='entries')
+    lexeme       = models.ForeignKey(
+        Lexeme, on_delete=models.SET_NULL, null=True, blank=True, related_name='entries'
+    )
+    content_type = models.CharField(
+        max_length=30, choices=ContentType.choices, default=ContentType.VOCABULARY
+    )
     paiute        = models.TextField()
     pronunciation = models.TextField(blank=True, null=True)
     english       = models.TextField()
     context_note  = models.TextField(blank=True, null=True)
     source_notes  = models.TextField(blank=True, null=True)
     sort_order    = models.SmallIntegerField(null=True, blank=True)
+    metadata      = models.JSONField(null=True, blank=True)
+    embedding     = VectorField(dimensions=1536, null=True, blank=True)
     created_at    = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'entries'
         ordering = ['lesson', 'sort_order']
+        indexes  = [
+            models.Index(fields=['content_type']),
+            models.Index(fields=['lesson', 'content_type']),
+        ]
 
     def __str__(self):
-        return f'{self.paiute} -- {self.english}'
+        return f'[{self.content_type}] {self.paiute} -- {self.english}'
 
 
 # =============================================================================
