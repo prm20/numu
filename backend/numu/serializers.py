@@ -58,19 +58,21 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class EntrySerializer(serializers.ModelSerializer):
     lesson = LessonSerializer(read_only=True)
+    lexeme = LexemeSerializer(read_only=True)
 
     class Meta:
         model = Entry
         fields = [
             'id',
             'lesson',
-            'content_type',
+            'lexeme',
             'paiute',
             'pronunciation',
             'english',
             'context_note',
             'source_notes',
             'sort_order',
+            'content_type',
             'metadata',
         ]
 
